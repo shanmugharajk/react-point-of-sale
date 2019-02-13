@@ -8,8 +8,7 @@ A simple point of sale application built using react &amp; node.js.
 Currently I am working on the following updates
 - Migrating the backend to Elixir-Phoenix
 - Updating the material-ui to latest release
-- Use create-react-app with typescript.
-- Use Mobx and remove redux dependency.
+- Use NextJs, Redux, Saga, Typescript.
 - Create a road map.
 - Create a project site with github pages.
 
