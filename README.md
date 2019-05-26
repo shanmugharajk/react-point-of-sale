@@ -12,6 +12,9 @@ Currently I am working on the following updates
 - Create a road map.
 - Create a project site with github pages.
 
+Current developement is going on in elixir-dev branch.
+
+
 ## Some screenshots
 
 <img width="1440" alt="login" src="https://user-images.githubusercontent.com/11159061/41917847-c7aaa21e-7978-11e8-89a3-c24991753fd5.png">
