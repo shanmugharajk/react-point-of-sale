@@ -1,0 +1,45 @@
+{
+  "name": "ts",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
+    "@types/classnames": "^2.2.7",
+    "@types/jest": "24.0.6",
+    "@types/node": "11.9.5",
+    "@types/react": "16.8.4",
+    "@types/react-dom": "16.8.2",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/react-select": "^2.0.17",
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "final-form": "^4.11.1",
+    "mobx": "^5.9.0",
+    "mobx-react-lite": "^1.0.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-final-form": "^4.0.2",
+    "react-number-format": "^4.0.8",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5",
+    "react-select": "^2.4.3",
+    "typescript": "3.3.3333"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

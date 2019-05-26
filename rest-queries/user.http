@@ -1,0 +1,59 @@
+@host=http://localhost:4000/api/v1
+###
+
+# @name login
+POST {{host}}/login HTTP/1.1
+content-type: application/json
+
+{
+  "userid": "shan",
+  "password": "shan"
+}
+###
+
+@token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJlcG9zIiwiZXhwIjoxNTQ3ODIzNTQ3LCJpYXQiOjE1NDc3MzcxNDcsImlzcyI6ImVwb3MiLCJqdGkiOiI5MDRmZTI5OC03ODIwLTQ4NzgtYTJiYy1kYTRlMDdkYzQ2OGQiLCJuYmYiOjE1NDc3MzcxNDYsInBlbSI6eyJzdXBlcl9hZG1pbiI6MX0sInJvbGUiOiJzdXBlcl9hZG1pbiIsInN1YiI6InNoYW4iLCJ0eXAiOiJhY2Nlc3MifQ.PsMlcD1GgrHwqNJxoxWD0isLOgAHkHZgfWI-m3G1o1S0SUSFKnNlvp_WeSx6zqyIvh_wvAGekXlZgo8hMXYSkA
+# @name getAllUsers
+GET {{host}}/users HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name getUser-sh-sfk
+GET {{host}}/users/shan HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name createUser
+POST {{host}}/users HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "address": "13 banergatta road",
+  "email": "email@email.com",
+  "id": "shan",
+  "username": "shan",
+  "mobile": "1234567890",
+  "role": "super_admin",
+  "password": "shan"
+}
+###
+
+# @name updateUser
+PUT {{host}}/users/sh-sfk HTTP/1.1
+content-type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "address": "13 banergatta road",
+  "email": "email@email.com",
+  "username": "sherlock holmes red",
+  "mobile": "1234567890",
+  "role": "super_admin",
+  "password": "shan"
+}
+###
+
+# @name deleteUser
+DELETE {{host}}/users/sfk HTTP/1.1
+Authorization: Bearer {{token}}
+###

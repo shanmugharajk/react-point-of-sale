@@ -1,0 +1,109 @@
+@host=http://localhost:4000/api/v1
+###
+
+# @name login
+POST {{host}}/login HTTP/1.1
+content-type: application/json
+
+{
+  "userid": "shan",
+  "password": "shan"
+}
+###
+
+@token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJlcG9zIiwiZXhwIjoxNTUwMjE5NTc2LCJpYXQiOjE1NTAxMzMxNzYsImlzcyI6ImVwb3MiLCJqdGkiOiI2NzU0YWIxYy1jMTgzLTQxMWMtOTU1NS03NGNiNTgxY2VkYWQiLCJuYmYiOjE1NTAxMzMxNzUsInBlbSI6eyJzdXBlcl9hZG1pbiI6MX0sInJvbGUiOiJzdXBlcl9hZG1pbiIsInN1YiI6InNoYW4iLCJ0eXAiOiJhY2Nlc3MifQ.KfbBv3loWyZj93xl3NCZwgCZ1BppY8HtVEBpeya5boyu5nX5cGVwxp6rnTewKyFZJcqvD4wWavtDDI0ozPWBUA
+@transaction_id=1550133602898
+
+# @name initTransaction
+GET {{host}}/sale/walk-in HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name emptyCart
+DELETE {{host}}/sale/{{transaction_id}}/cart HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name deleteItemFromCart
+DELETE {{host}}/sale/{{transaction_id}}/cart/A4 HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name updateCart
+PUT {{host}}/sale/{{transaction_id}}/cart/A3 HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+  "qty": 10,
+  "discount_price": 440
+}
+###
+
+# @name checkoutCounterSale
+POST {{host}}/sale/{{transaction_id}}/counter-sale/checkout HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+  "discount_on_total_price": 1000,
+  "tax_price": 1000,
+  "tax_percentage": "2%",
+  "sale_date": "2019-01-25T10:59:03.203Z"
+}
+###
+
+# @name checkoutCreditSale
+POST {{host}}/sale/{{transaction_id}}/credit-sale/checkout HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+  "customer_id": "shan",
+  "discount_on_total_price": 1000,
+  "tax_price": 1000,
+  "tax_percentage": "2%",
+  "paid_price": 10,
+  "sale_date": "2019-01-25T10:59:03.203Z"
+}
+###
+
+# @name revertCounterSaleDetail
+GET {{host}}/sale/{{transaction_id}}/counter-sale/revert HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+
+# @name revertCreditSaleDetail
+GET {{host}}/sale/{{transaction_id}}/credit-sale/revert HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name cloneSale
+GET {{host}}/sale/{{transaction_id}}/clone HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name creditPayment
+POST {{host}}/sale/credit-payment HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+  "customer_id": "shan",
+  "payment_price": 1000,
+  "paid_date": "2019-01-25T10:59:03.203Z"
+}
+###
+
+# @name adjustPayment
+POST {{host}}/sale/credit-payment-adjustment HTTP/1.1
+Authorization: Bearer {{token}}
+content-type: application/json
+
+{
+  "customer_id": "shan",
+  "payment_price": 1000,
+  "paid_date": "2019-01-25T10:59:03.203Z"
+}
+###

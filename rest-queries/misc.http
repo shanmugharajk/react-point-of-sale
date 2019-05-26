@@ -1,0 +1,77 @@
+@host=http://localhost:4000/api/v1
+###
+
+# @name login
+POST {{host}}/login HTTP/1.1
+content-type: application/json
+
+{
+  "userid": "shan",
+  "password": "shan"
+}
+###
+
+@token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJlcG9zIiwiZXhwIjoxNTU4NDAyNzE1LCJpYXQiOjE1NTgzMTYzMTUsImlzcyI6ImVwb3MiLCJqdGkiOiI0MzdjNGY4My01ODk4LTQ0YmUtOTZjYS1mNTllYTU4ODA4ZDIiLCJuYmYiOjE1NTgzMTYzMTQsInBlbSI6eyJzdXBlcl9hZG1pbiI6MX0sInJvbGUiOiJzdXBlcl9hZG1pbiIsInN1YiI6InNoYW4iLCJ0eXAiOiJhY2Nlc3MifQ.ZfEVKNA0NYyogIDLoZLLkGYOWS1xCJydGGrCaJTz3_J-Kv-7xAp08DTm8GRKPaW8CPNrKKaZS9RhdGrJ2MT9HA
+
+# @name getAllProductTypes
+GET {{host}}/product-types?page_number=1&page_size=20 HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name search productType
+GET {{host}}/product-types/search?id=pe HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name getProductById productType
+GET {{host}}/product-types/paper HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name getAllProducts
+GET {{host}}/products?page_number=1&page_size=20 HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name search product
+GET {{host}}/product/search?id=-prod HTTP/1.1
+Authorization: Bearer {{token}}
+###
+
+# @name listReceiving
+GET {{host}}/receivings HTTP/1.1
+Authorization: : Bearer {{token}}
+###
+
+# @name addReceiving
+POST {{host}}/receivings HTTP/1.1
+Authorization: : Bearer {{token}}
+content-type: application/json
+
+{
+  "vendor_id": "creative_eye",
+  "product_id": "A3",
+  "qty": 6000,
+  "price": 3500.0,
+  "received_date": "2019-01-25T10:59:03.203Z"
+}
+###
+
+# @name updateReceiving
+PUT {{host}}/receivings/2 HTTP/1.1
+Authorization: : Bearer {{token}}
+content-type: application/json
+
+{
+  "vendor_id": "creative_eye",
+  "product_id": "A4",
+  "qty": 1500,
+  "price": 3500.0,
+  "received_date": "2019-01-25T10:59:03.203Z"
+}
+###
+
+# @name deleteReceiving
+DELETE {{host}}/receivings/41 HTTP/1.1
+Authorization: Bearer {{token}}
+###
