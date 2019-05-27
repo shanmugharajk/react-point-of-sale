@@ -5,7 +5,7 @@ import { RouteComponentProps, withRouter } from "react-router";
 import CustomTabs from "../../components/controls/customTabs/CustomTabs";
 import TabContainer from "../../components/controls/customTabs/TabContainer";
 import AsyncDataGrid from "../../components/controls/datagrid/AysncDataGrid";
-import ProductTab from "./ProductTab";
+import ProductTab from "./productTab/ProductTab";
 
 interface IProps extends RouteComponentProps<any> {}
 

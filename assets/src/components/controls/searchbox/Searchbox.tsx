@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent, useState } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/styles";
 import { InputAdornment, IconButton } from "@material-ui/core";
@@ -6,27 +6,37 @@ import CustomTextField from "../textfields/CustomTextField";
 import styles from "./searchBox.style";
 
 interface IProps {
-  onChange: (e: any) => void;
-  value: string | number;
   onSubmit: (e: any) => void;
   placeholder?: string;
 }
 
-const Searchbox = ({ onChange, value, onSubmit, placeholder }: IProps) => {
+const Searchbox = ({ onSubmit, placeholder }: IProps) => {
   const useStyles = makeStyles(styles);
   const classes = useStyles();
 
+  const [searchtext, setSearchText] = useState("");
+
+  const onSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+
   return (
-    <form onSubmit={onSubmit} className={classes.root}>
+    <form
+      onSubmit={e => {
+        e.preventDefault();
+        onSubmit(searchtext);
+      }}
+      className={classes.root}
+    >
       <CustomTextField
-        onChange={onChange}
-        value={value}
+        onChange={onSearchChange}
+        value={searchtext}
         style={{ width: 200 }}
         placeholder={placeholder}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <IconButton onClick={onSubmit}>
+              <IconButton onClick={() => onSubmit(searchtext)}>
                 <SearchIcon />
               </IconButton>
             </InputAdornment>

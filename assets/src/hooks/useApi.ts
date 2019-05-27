@@ -11,6 +11,7 @@ export enum RequestType {
 export default function useApi(
   url: string,
   type = RequestType.GET,
+  condition = true,
   postData?: any
 ) {
   const [data, setData] = useState();
@@ -22,7 +23,10 @@ export default function useApi(
 
     (async () => {
       try {
-        // AxiosStatic
+        if (!condition) {
+          return [false, null, null];
+        }
+
         let res = { data: [] };
 
         switch (type) {
@@ -64,7 +68,7 @@ export default function useApi(
       mounted = false;
     };
     return cleanup;
-  }, [url]);
+  }, [url, condition]);
 
   return [loading, data, error];
 }

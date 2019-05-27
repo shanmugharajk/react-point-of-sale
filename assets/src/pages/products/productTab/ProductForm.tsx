@@ -2,21 +2,21 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import equal from "fast-deep-equal";
 import { withRouter, RouteComponentProps } from "react-router";
 import { makeStyles } from "@material-ui/styles";
-import Container from "../../components/controls/container/InnerContainer";
-import useApi from "../../hooks/useApi";
-import productsService from "./productsService";
-import Prompt from "../../components/controls/dialog/Prompt";
-import CircularLoader from "../../components/controls/loader/CircularLoader";
-import Form from "../../components/controls/form/Form";
-import AutoCloseMessage from "../../components/controls/messages/AutoCloseMessage";
-import CustomTextField from "../../components/controls/textfields/CustomTextField";
-import CustomNumberTextField from "../../components/controls/textfields/CustomNumberTextField";
-import { IFormData, IApiResult } from "../../common/interfaces";
-import { isValueExists } from "../../libs/utils";
+import Container from "../../../components/controls/container/InnerContainer";
+import useApi, { RequestType } from "../../../hooks/useApi";
+import productsService from "../productsService";
+import Prompt from "../../../components/controls/dialog/Prompt";
+import CircularLoader from "../../../components/controls/loader/CircularLoader";
+import Form from "../../../components/controls/form/Form";
+import AutoCloseMessage from "../../../components/controls/messages/AutoCloseMessage";
+import CustomTextField from "../../../components/controls/textfields/CustomTextField";
+import CustomNumberTextField from "../../../components/controls/textfields/CustomNumberTextField";
+import { IFormData, IApiResult } from "../../../common/interfaces";
+import { isValueExists } from "../../../libs/utils";
 import styles from "./productForm.style";
-import AutosuggestSelect from "../../components/controls/autosuggestSelect/AutosuggestSelect";
+import AutosuggestSelect from "../../../components/controls/autosuggestSelect/AutosuggestSelect";
 import { ValueType } from "react-select/lib/types";
-import { OptionType } from "../../components/controls/autosuggestSelect/types";
+import { OptionType } from "../../../components/controls/autosuggestSelect/types";
 
 interface IProps
   extends RouteComponentProps<{
@@ -28,30 +28,12 @@ const initialFormData = {
     id: "",
     name: "",
     description: "",
-    costPrice: "",
-    sellingPrice: "",
-    productTypeId: ""
+    cost_price: "",
+    selling_price: "",
+    productTypeSelectedItem: "",
+    product_type_id: ""
   },
   errors: {}
-};
-
-const loadData = (params: { id: string }) => {
-  let [loading, productTypeId, error] = useApi(
-    productsService.productTypes.urls.fetchAll()
-  );
-
-  const { id } = params;
-
-  if (error || !id) {
-    return [loading, productTypeId, null, error];
-  }
-
-  let productToEdit;
-  [loading, productToEdit, error] = useApi(
-    productsService.products.urls.fetchAll()
-  );
-
-  return [loading, productTypeId, productToEdit, error];
 };
 
 const normalizeData = (productTypes: IApiResult) => {
@@ -65,33 +47,87 @@ const normalizeData = (productTypes: IApiResult) => {
   }));
 };
 
+const loadData = (params: { id: string }) => {
+  let [loading, productTypes, error] = useApi(
+    productsService.productTypes.urls.fetchAll()
+  );
+
+  const { id } = params;
+
+  if (error || !id) {
+    return [loading, productTypes, null, error];
+  }
+
+  let productToEdit;
+  [loading, productToEdit, error] = useApi(
+    productsService.products.urls.fetchAll()
+  );
+
+  return [loading, productTypes, productToEdit, error];
+};
+
 const ProductForm = (props: IProps) => {
   const useStyles = makeStyles(styles);
   const classes = useStyles();
 
+  const { id } = props.match.params;
+
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<IFormData>(initialFormData);
   const [message, setMessage] = useState("");
   const [productTypes, setProductTypes] = useState();
   const [showMessageDialog, setShowMessageDialog] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  let [loading, productTypeIds, productToEdit, error]: Array<any> = loadData(
-    props.match.params
-  );
+  // === EFFECTS - START ===
+
+  // Fetch all productTyeps for the dropdown
+  const [
+    productTypesListLoading,
+    productTypesList,
+    productTypesListError
+  ] = useApi(productsService.productTypes.urls.fetchAll());
 
   useEffect(() => {
-    const res = normalizeData(productTypeIds);
+    const res = normalizeData(productTypesList);
     if (res.length > 0) {
       setProductTypes(res);
     }
-  }, [productTypeIds]);
+  }, [productTypesList]);
+
+  // If its a edit fetch the data and update the state.
+  const [productToEditLoading, productToEdit, productToEditError] = useApi(
+    productsService.products.urls.fetchById(id),
+    RequestType.GET,
+    !!id
+  );
+
+  // To update the form with the details to edit.
+  useEffect(() => {
+    if (!isEdit) {
+      return;
+    }
+    setFormData({
+      data: {
+        ...productToEdit.data,
+        productTypeSelectedItem: {
+          label: productToEdit.data.product_type_id,
+          value: productToEdit.data.product_type_id
+        }
+      },
+      errors: {}
+    });
+  }, [productToEdit && productToEdit.data.id]);
+
+  // To update the loading in localstate accordingly
+  useEffect(() => {
+    setLoading(productTypesListLoading || productToEditLoading);
+  }, [productTypesListLoading, productToEditLoading]);
+
+  // === EFFECTS - END ===
 
   const { data, errors } = formData;
   const isEdit = !!productToEdit;
-
-  if (isEdit) {
-    // TODO: Do the edit here.
-  }
 
   let idRef: any;
 
@@ -105,12 +141,16 @@ const ProductForm = (props: IProps) => {
   };
 
   const onProductTypeDropdownChange = (value: ValueType<OptionType>) => {
-    const productTypeId = value === null ? "" : value;
+    const productTypeSelectedItem = value === null ? "" : value;
     const { data, errors } = formData;
 
     setFormData({
-      data: { ...data, productTypeId },
-      errors: { ...errors, productTypeId: "" }
+      data: {
+        ...data,
+        productTypeSelectedItem,
+        product_type_id: (productTypeSelectedItem as OptionType).value
+      },
+      errors: { ...errors, product_type_id: "" }
     });
   };
 
@@ -133,10 +173,6 @@ const ProductForm = (props: IProps) => {
     setMessage("");
   };
 
-  const showMessage = (message: string) => {
-    setMessage(message);
-  };
-
   const onSubmit = async (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
 
@@ -148,8 +184,8 @@ const ProductForm = (props: IProps) => {
     }
 
     try {
-      data.costPrice = Number(data.costPrice);
-      data.sellingPrice = Number(data.sellingPrice);
+      data.cost_price = Number(data.cost_price);
+      data.selling_price = Number(data.selling_price);
 
       if (isEdit === false) {
         await createNew();
@@ -157,17 +193,24 @@ const ProductForm = (props: IProps) => {
         await update();
       }
     } catch (error) {
-      setMessage(error);
+      let message = error && error.message;
+      if (!message) {
+        message = "Error in saving the details";
+      }
+      setMessage(message);
       setIsError(true);
     }
   };
 
   const createNew = async () => {
-    const res = await productsService.products.services.createNew(data);
+    const toSubmit = { ...data };
+    delete toSubmit.productTypeSelectedItem;
+
+    const res = await productsService.products.services.createNew(toSubmit);
 
     if (res.status === 200) {
-      showMessage("Saved successfully");
       clearForm();
+      setMessage("Saved successfully");
     } else {
       throw new Error(
         `Unable to create the record. The status code is ${res.status}`
@@ -182,12 +225,18 @@ const ProductForm = (props: IProps) => {
     );
     if (res.status === 200) {
       clearForm();
+      setShowMessageDialog(true);
     } else {
       throw new Error(`Unable to update. The status code is ${res.status}`);
     }
   };
 
   const onCancel = () => {
+    if (isEdit) {
+      props.history.goBack();
+      return;
+    }
+
     const isDirty = !equal(initialFormData, formData);
 
     if (isDirty === true) {
@@ -199,9 +248,9 @@ const ProductForm = (props: IProps) => {
   };
 
   return (
-    <Container>
+    <Container title={isEdit ? "Edit Product" : "New Product"}>
       <Prompt
-        message="The product was saved successfully"
+        message="The product was updated successfully"
         open={showMessageDialog}
         handleClose={onMessageDialogCloseClick}
       />
@@ -230,9 +279,9 @@ const ProductForm = (props: IProps) => {
         <AutosuggestSelect
           label="Product type"
           suggestions={productTypes}
-          value={data.productTypeId}
+          value={data.productTypeSelectedItem}
           onChange={onProductTypeDropdownChange}
-          error={!!errors.productTypeId}
+          error={!!errors.product_type_id}
         />
 
         <CustomTextField
@@ -252,17 +301,17 @@ const ProductForm = (props: IProps) => {
         />
 
         <CustomNumberTextField
-          error={!!errors.costPrice}
-          name="costPrice"
-          value={data.costPrice}
+          error={!!errors.cost_price}
+          name="cost_price"
+          value={data.cost_price}
           label="Cost price"
           onChange={onChange}
         />
 
         <CustomNumberTextField
-          error={!!errors.sellingPrice}
-          name="sellingPrice"
-          value={data.sellingPrice}
+          error={!!errors.selling_price}
+          name="selling_price"
+          value={data.selling_price}
           label="Selling price"
           onChange={onChange}
         />

@@ -203,12 +203,13 @@ const AsyncDataGrid = (props: IProps) => {
   const { fetchUrl } = props;
 
   const [pageNo, setPageNo] = useState(1);
-  const [url, setUrl] = useState(fetchUrl(pageNo));
+  const iurl = fetchUrl(pageNo);
+  const [url, setUrl] = useState(iurl);
   const [loading, resultSet, error] = useApi(url);
 
   useEffect(() => {
-    setUrl(fetchUrl(pageNo));
-  }, [pageNo]);
+    setUrl(iurl);
+  }, [pageNo, iurl]);
 
   const hasRecords = resultSet && resultSet.data.length > 0;
   const useStyles = makeStyles(styles);

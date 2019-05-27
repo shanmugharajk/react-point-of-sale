@@ -44,7 +44,7 @@ defmodule EposWeb.Router do
     #               PRODUCTS
     # ============================================
 
-    get("/product/search", ProductsController, :search)
+    get("/products/search", ProductsController, :search)
 
     resources("/products", ProductsController, only: [:index, :create, :update, :show, :delete])
 

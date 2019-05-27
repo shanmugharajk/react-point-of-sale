@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router";
 import NotFound from "../../components/notFound/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import Products from "../products/Products";
-import ProductForm from "../products/ProductForm";
+import ProductForm from "../products/productTab/ProductForm";
 
 const Routes = () => (
   // TODO: why overflow: auto ??

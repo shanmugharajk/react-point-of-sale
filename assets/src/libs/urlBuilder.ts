@@ -10,7 +10,7 @@ const urlBuilder = (mainRouteName: string) => ({
   fetchAll: () => `${HOST}/${mainRouteName}?page_size=5000&page_number=1`,
 
   searchByIdAndGetByPages: (id: string, pageNo = 1, pageSize = 10) =>
-    `${HOST}/${mainRouteName}?q=${id}&per_page=${pageSize}&page_number=${pageNo}`,
+    `${HOST}/${mainRouteName}/search?q=${id}&per_page=${pageSize}&page_number=${pageNo}`,
 
   searchByIdAndGetAll: (id: string) => `${HOST}/${mainRouteName}/all?q=${id}`,
 

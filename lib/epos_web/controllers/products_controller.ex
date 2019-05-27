@@ -15,7 +15,7 @@ defmodule EposWeb.ProductsController do
     render(conn, "index.json", products: products)
   end
 
-  def search(conn, %{"id" => id}) do
+  def search(conn, %{"q" => id}) do
     {page_number, page_size} = get_pagination_detail(conn)
 
     products = Products.search_product_by_id(id, page_number, page_size)
@@ -30,7 +30,6 @@ defmodule EposWeb.ProductsController do
 
     with {:ok, product} <- Products.create_product(product) do
       conn
-      |> Conn.put_status(201)
       |> render("show.json", product: product)
     end
   end
@@ -56,7 +55,6 @@ defmodule EposWeb.ProductsController do
     with {:ok, product} <- Products.get_product(id),
          {:ok, _} <- Products.delete_product(product) do
       conn
-      |> Conn.put_status(204)
       |> Conn.send_resp(:no_content, "")
     end
   end

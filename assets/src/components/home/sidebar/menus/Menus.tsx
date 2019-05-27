@@ -20,10 +20,7 @@ const Menus = (props: IProps) => {
 
   const isSelected = (paths: Array<string>) => {
     for (const idx in paths) {
-      if (
-        props.history.location.pathname === `${paths[idx]}` ||
-        props.history.location.pathname.includes(`/${paths[idx]}/`)
-      ) {
+      if (props.history.location.pathname.includes(`${paths[idx]}`)) {
         return true;
       }
     }

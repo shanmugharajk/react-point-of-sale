@@ -11,7 +11,7 @@ content-type: application/json
 }
 ###
 
-@token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJlcG9zIiwiZXhwIjoxNTU4NDAyNzE1LCJpYXQiOjE1NTgzMTYzMTUsImlzcyI6ImVwb3MiLCJqdGkiOiI0MzdjNGY4My01ODk4LTQ0YmUtOTZjYS1mNTllYTU4ODA4ZDIiLCJuYmYiOjE1NTgzMTYzMTQsInBlbSI6eyJzdXBlcl9hZG1pbiI6MX0sInJvbGUiOiJzdXBlcl9hZG1pbiIsInN1YiI6InNoYW4iLCJ0eXAiOiJhY2Nlc3MifQ.ZfEVKNA0NYyogIDLoZLLkGYOWS1xCJydGGrCaJTz3_J-Kv-7xAp08DTm8GRKPaW8CPNrKKaZS9RhdGrJ2MT9HA
+@token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJlcG9zIiwiZXhwIjoxNTU4OTcwOTI5LCJpYXQiOjE1NTg4ODQ1MjksImlzcyI6ImVwb3MiLCJqdGkiOiIzZWE5ZmRjZS1iZDc4LTRiMmItOTliZS1kNTgxZGYwYmJiYzciLCJuYmYiOjE1NTg4ODQ1MjgsInBlbSI6eyJzdXBlcl9hZG1pbiI6MX0sInJvbGUiOiJzdXBlcl9hZG1pbiIsInN1YiI6InNoYW4iLCJ0eXAiOiJhY2Nlc3MifQ.eAMFGvtg2hxbPrsU9mW-JFRmPuzCkYNg30ysFjZ8hg1HqI7Mckyp0idO__HV-7D_N5T-xAKFUo9guLqhL4XmzA
 
 # @name getAllProductTypes
 GET {{host}}/product-types?page_number=1&page_size=20 HTTP/1.1
@@ -34,7 +34,7 @@ Authorization: Bearer {{token}}
 ###
 
 # @name search product
-GET {{host}}/product/search?id=-prod HTTP/1.1
+GET {{host}}/products/search?q=iuy HTTP/1.1
 Authorization: Bearer {{token}}
 ###
 

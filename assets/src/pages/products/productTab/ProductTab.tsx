@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { Button } from "@material-ui/core";
 import { withRouter, RouteComponentProps } from "react-router";
 import { makeStyles } from "@material-ui/styles";
-import AsyncDataGrid from "../../components/controls/datagrid/AysncDataGrid";
-import productsService from "./productsService";
-import CircularLoader from "../../components/controls/loader/CircularLoader";
-import YesNo from "../../components/controls/dialog/YesNo";
-import Searchbox from "../../components/controls/searchbox/Searchbox";
-import AutoCloseMessage from "../../components/controls/messages/AutoCloseMessage";
+import AsyncDataGrid from "../../../components/controls/datagrid/AysncDataGrid";
+import productsService from "../productsService";
+import CircularLoader from "../../../components/controls/loader/CircularLoader";
+import YesNo from "../../../components/controls/dialog/YesNo";
+import Searchbox from "../../../components/controls/searchbox/Searchbox";
+import AutoCloseMessage from "../../../components/controls/messages/AutoCloseMessage";
 import styles from "./productTab.style";
 
 interface IProps extends RouteComponentProps<{}> {}
@@ -29,6 +29,7 @@ interface IState {
   searchText: string;
   isLoading: boolean;
   showConfirmDeleteDialog: boolean;
+  doSearch: boolean;
 }
 
 const initialState: IState = {
@@ -38,7 +39,8 @@ const initialState: IState = {
   searchText: "",
   itemToDelete: "",
   isLoading: false,
-  showConfirmDeleteDialog: false
+  showConfirmDeleteDialog: false,
+  doSearch: false
 };
 
 const ProductTab = (props: IProps) => {
@@ -51,8 +53,8 @@ const ProductTab = (props: IProps) => {
     setState({ ...state, searchText: "", showMessage: false });
   };
 
-  const onSearchSubmit = (searchText: string) => {
-    setState({ ...state, searchText });
+  const onSearchSubmit = (value: any) => {
+    setState({ ...state, searchText: value });
   };
 
   const onCreateNewClick = () => {
@@ -90,7 +92,7 @@ const ProductTab = (props: IProps) => {
 
       const res = await productsService.products.services.delete(id);
 
-      if (res.status === 200) {
+      if (res.status === 204) {
         showMessage("Deleted successfully.");
       } else {
         throw new Error(
@@ -102,10 +104,6 @@ const ProductTab = (props: IProps) => {
     }
   };
 
-  const onSearchChange = (searchText: string) => {
-    setState({ ...state, searchText });
-  };
-
   const onCancelConfirmDeleteClick = () => {
     setState({ ...state, showConfirmDeleteDialog: false });
   };
@@ -115,7 +113,7 @@ const ProductTab = (props: IProps) => {
   };
 
   const getApiUrl = (pageNo?: number, pageSize?: number) => {
-    const { searchText } = state;
+    const { searchText, doSearch } = state;
 
     if (!searchText || searchText.length === 0) {
       return productsService.products.urls.fetchByPages(pageNo, pageSize);
@@ -157,11 +155,7 @@ const ProductTab = (props: IProps) => {
         >
           Create New
         </Button>
-        <Searchbox
-          value={state.searchText}
-          onChange={onSearchChange}
-          onSubmit={onSearchSubmit}
-        />
+        <Searchbox onSubmit={onSearchSubmit} />
       </div>
 
       <AutoCloseMessage
