@@ -12,7 +12,7 @@ Currently I am working on the following updates
 - Create a road map.
 - Create a project site with github pages.
 
-Current developement is going on in elixir-dev branch.
+Current developement is going on in **elixir-dev** branch.
 
 
 ## Some screenshots
