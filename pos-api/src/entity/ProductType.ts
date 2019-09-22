@@ -1,14 +1,14 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
-import { Base } from "./Base";
-import { IsPositive } from "class-validator";
+import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Base } from './Base';
+import { IsNotEmpty } from 'class-validator';
 
 @Entity()
 export class ProductType extends Base {
-  @IsPositive()
+  @IsNotEmpty()
   @PrimaryColumn()
   id: string;
 
-  @IsPositive()
+  @IsNotEmpty()
   @Column()
   description: string;
 }

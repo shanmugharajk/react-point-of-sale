@@ -46,7 +46,7 @@ class LoginPage extends Component {
 
     try {
       await this.props.loginUser({ ...this.state.data });
-      this.props.history.push("/home");
+      this.props.history.push("/");
     } catch (error) {
       this.setState({
         errors: { global: error.message },

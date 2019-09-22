@@ -1,4 +1,4 @@
-import { ProductType } from "../../entity/ProductType";
+import { ProductType } from '../../entity/ProductType';
 import {
   Get,
   Post,
@@ -9,16 +9,16 @@ import {
   Param,
   Put,
   Delete
-} from "routing-controllers";
-import { CrudServices, IFetchPageQuery } from "../../services/CrudServices";
-import { CurrentUser } from "../../decorators/CurrentUser";
+} from 'routing-controllers';
+import { CrudServices, IFetchPageQuery } from '../../services/CrudServices';
+import { CurrentUser } from '../../decorators/CurrentUser';
 
 import {
   PaginationInfo,
   IPaginationQueryParam
-} from "../../decorators/PaginationInfo";
+} from '../../decorators/PaginationInfo';
 
-@JsonController("/productTypes")
+@JsonController('/productTypes')
 @Authorized()
 export class ProductTypesController {
   private crudServices: CrudServices<ProductType>;
@@ -28,13 +28,13 @@ export class ProductTypesController {
     this.crudServices.setEntity(ProductType);
   }
 
-  @Get("/all/items")
+  @Get('/all/items')
   public async getAllProductTypes(): Promise<ProductType[]> {
     return await this.crudServices.fetchAll();
   }
 
-  @Get("/:id")
-  public async getProductTypeById(@Param("id") id: string): Promise<any> {
+  @Get('/:id')
+  public async getProductTypeById(@Param('id') id: string): Promise<any> {
     const res = await this.crudServices.fetchById(id);
     return res || {};
   }
@@ -42,7 +42,7 @@ export class ProductTypesController {
   @Get()
   public async getProductTypes(
     @PaginationInfo() paginationInfo: IPaginationQueryParam,
-    @QueryParam("q") search?: string
+    @QueryParam('q') search?: string
   ): Promise<ProductType[]> {
     const query: IFetchPageQuery = {
       search,
@@ -60,17 +60,17 @@ export class ProductTypesController {
     return await this.crudServices.create(userid, productType);
   }
 
-  @Put("/:id")
+  @Put('/:id')
   public async updateProductType(
-    @Param("id") id: string,
+    @Param('id') id: string,
     @Body() data: ProductType,
     @CurrentUser() userid: string
   ) {
     return await this.crudServices.updateById(userid, { id }, data);
   }
 
-  @Delete("/:id")
-  public async deleteProductType(@Param("id") id: string): Promise<any> {
+  @Delete('/:id')
+  public async deleteProductType(@Param('id') id: string): Promise<any> {
     return await this.crudServices.deleteById(id);
   }
 }
