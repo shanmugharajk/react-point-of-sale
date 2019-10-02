@@ -4,16 +4,6 @@ A simple point of sale application built using react &amp; node.js.
 
 ** This is still work in progress **
 
-## Current update 
-Currently I am working on the following updates
-- Migrating the backend to Elixir-Phoenix
-- Updating the material-ui to latest release
-- Use Typescript and React Hooks api.
-- Create a road map.
-- Create a project site with github pages.
-
-Current developement is going on in **elixir-dev** branch.
-
 
 ## Some screenshots
 
