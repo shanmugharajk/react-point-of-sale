@@ -1,10 +1,12 @@
 {
-  "name": "ui",
+  "name": "react-point-of-sale",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "dev:web": "react-scripts start",
+    "dev:api": "cd ./api && yarn run dev:api",
+    "build:web": "react-scripts build",
+    "build:api": "cd ./api && yarn run build:api",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -44,6 +46,5 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0"
-  },
-  "proxy": "http://localhost:3500"
+  }
 }
