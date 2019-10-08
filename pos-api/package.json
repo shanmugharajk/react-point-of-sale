@@ -1,8 +1,8 @@
 {
-  "name": "new-typeorm-project",
+  "name": "pos-api",
   "version": "0.0.1",
   "license": "MIT",
-  "description": "Awesome project developed with TypeORM.",
+  "description": "Backend for react-pos",
   "devDependencies": {
     "@types/jsonwebtoken": "^7.2.7",
     "@types/node": "^8.0.29",
@@ -29,7 +29,13 @@
     "typedi": "^0.7.3",
     "typeorm": "0.2.7"
   },
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
-    "start": "nodemon"
+    "start-dev": "nodemon",
+    "build": "tsc",
+    "prod:serve": "node build/index.js",
+    "start": "yarn run build && yarn run prod:serve"
   }
 }
