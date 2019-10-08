@@ -29,9 +29,11 @@
     "node": "10.x"
   },
   "scripts": {
+    "tsc": "tsc",
     "dev:api": "nodemon",
     "build:api": "tsc",
     "prod:serve": "node build/index.js",
-    "start": "yarn run build:api && yarn run prod:serve"
+    "start": "yarn run build:api && yarn run prod:serve",
+    "postinstall": "npm run tsc"
   }
 }
