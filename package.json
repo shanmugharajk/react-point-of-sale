@@ -38,17 +38,16 @@
     "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
-    "eslint-plugin-react": "^7.7.0",
-    "typescript": "2.5.2"
+    "eslint-plugin-react": "^7.7.0"
   },
   "scripts": {
     "dev:web": "react-scripts start",
-    "dev:api": "cd ./api && yarn run dev:api",
+    "dev:api": "cd api && yarn run dev:api",
     "build:web": "react-scripts build",
-    "build:api": "cd ./api && yarn run build:api",
-    "prod:serve": "cd ./api && yarn run build:api && node build/index.js",
-    "start:web": "cross-env REACT_APP_IS_PROD=true  cross-env REACT_APP_PROD_URL_PREFIX='https://rposs-api.herokuapp.com/api' yarn run dev:web",
-    "start": "cross-env IS_PROD=true yarn run prod:serve",
+    "build:api": "cd api && yarn run build:api",
+    "prod:serve": "cd api && yarn run build:api && node build/index.js",
+    "start:web": "cross-env REACT_APP_IS_PROD=true  cross-env REACT_APP_PROD_URL_PREFIX='https://nreact-api.herokuapp.com/api' yarn run dev:web",
+    "start:api": "cd api && yarn start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
