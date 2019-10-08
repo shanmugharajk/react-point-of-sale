@@ -1,1 +1,1 @@
-web: cd ./api && yarn run start
+web: yarn run start:api

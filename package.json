@@ -2,19 +2,12 @@
   "name": "react-point-of-sale",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "dev:web": "react-scripts start",
-    "dev:api": "cd ./api && yarn run dev:api",
-    "build:web": "react-scripts build",
-    "build:api": "cd ./api && yarn run build:api",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  },
   "dependencies": {
     "@material-ui/icons": "^1.0.0-beta.42",
     "autosuggest-highlight": "^3.1.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
+    "cross-env": "^6.0.3",
     "currency.js": "^1.1.3",
     "fast-deep-equal": "^1.1.0",
     "immutability-helper": "^2.6.6",
@@ -46,5 +39,16 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0"
+  },
+  "scripts": {
+    "dev:web": "react-scripts start",
+    "dev:api": "cd ./api && yarn run dev:api",
+    "build:web": "react-scripts build",
+    "build:api": "cd ./api && yarn run build:api",
+    "prod:serve": "cd ./api && yarn run build:api && node build/index.js",
+    "start:web": "cross-env REACT_APP_IS_PROD=true  cross-env REACT_APP_PROD_URL_PREFIX='https://shan-api.herokuapp.com/api' yarn run dev:web",
+    "start:api": "cross-env IS_PROD=true  cross-env PORT=3500 yarn run prod:serve",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }

@@ -32,6 +32,6 @@
     "dev:api": "nodemon",
     "build:api": "tsc",
     "prod:serve": "node build/index.js",
-    "start": "yarn run build && yarn run prod:serve"
+    "start": "yarn run build:api && yarn run prod:serve"
   }
 }
