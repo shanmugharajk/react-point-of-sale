@@ -1,0 +1,1 @@
+web: cd ./api && yarn run start
