@@ -4,12 +4,13 @@ A simple point of sale application built using react &amp; node.js.
 
 ## Note
 
-This is still work in progress
+This is still work in progress.
 
 ## To run the current code in development mode
 
-1. Run `yarn` and then `yarn dev:web` in the project root.
-2. Navigate to the `api` folder and then run `yarn`, then `yarn dev:api`.
+1. Run `yarn` to install all the dependencies in the root and also in the `api` folder.
+2. Then `yarn dev:web` and `yarn dev:api` in the project root in separate terminal.
+3. Navigate to http://localhost:3000 and use `admin` as username & password to see the dashboard.
 
 ## Some screenshots
 

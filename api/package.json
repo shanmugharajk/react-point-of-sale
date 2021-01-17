@@ -26,9 +26,6 @@
     "typedi": "^0.7.3",
     "typeorm": "0.2.7"
   },
-  "engines": {
-    "node": "10.x"
-  },
   "scripts": {
     "dev:api": "nodemon",
     "build:api": "./node_modules/.bin/tsc",
