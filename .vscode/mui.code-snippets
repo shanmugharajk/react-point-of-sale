@@ -1,0 +1,40 @@
+{
+  "Create MUI Styles": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "mcs",
+    "body": [
+      "const useStyles = makeStyles((theme: Theme) =>",
+      "\tcreateStyles({",
+      "\t\t${1}",
+      "\t}),",
+      ");"
+    ],
+    "description": "Log output to console"
+  },
+  "import MUI Styles": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "mis",
+    "body": [
+      "import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';"
+    ],
+    "description": "Log output to console"
+  },
+  "import MUI Components": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "mic",
+    "body": ["import ${1} from '@material-ui/core/${1}';"],
+    "description": "Log output to console"
+  },
+  "useStyles": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "mus",
+    "body": ["const classes = useStyles();"],
+    "description": "Log output to console"
+  },
+  "export compoent": {
+    "scope": "javascript,typescript,typescriptreact",
+    "prefix": "ex",
+    "body": ["export { ${2} } from '${1}'"],
+    "description": "Log output to console"
+  }
+}
