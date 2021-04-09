@@ -1,0 +1,21 @@
+{
+  "name": "pos",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "eslintConfig": {
+    "eslint.workingDirectories": [
+      {
+        "pattern": "./packages/*/"
+      }
+    ]
+  },
+  "scripts": {
+    "dev:ui": "cd ./packages/ui && yarn start",
+    "dev:api": "cd ./packages/api && yarn run start:dev",
+    "build:shared": "cd ./packages/shared && yarn run build"
+  }
+}
