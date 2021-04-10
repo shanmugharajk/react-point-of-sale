@@ -17,6 +17,9 @@
   "scripts": {
     "dev:ui": "cd ./packages/ui && yarn start",
     "dev:api": "cd ./packages/api && yarn run start:dev",
-    "build:shared": "cd ./packages/shared && yarn run build"
+    "build:common": "cd ./packages/common && yarn run build",
+    "db:gen-migration": "cd ./packages/api && yarn run db:gen-migration",
+    "db:run-migration": "cd ./packages/api && yarn run db:run-migration",
+    "db:seed": "cd ./packages/api && yarn run db:seed"
   }
 }
