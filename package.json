@@ -1,6 +1,7 @@
 {
   "name": "pos",
   "private": true,
+  "license": "MIT",
   "workspaces": {
     "packages": [
       "packages/*"
