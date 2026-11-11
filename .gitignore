@@ -39,3 +39,7 @@ yarn-error.log*
 
 # Reference scaffolds
 _reference/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
