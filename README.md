@@ -1,6 +1,6 @@
 # point-of-sale
 
-Full-stack point-of-sale app — Next.js monorepo with a shared data layer and auth.
+Simple point-of-sale app — Next.js monorepo with a shared data layer and auth.
 
 ## Commands
 
@@ -12,8 +12,7 @@ pnpm lint     # biome, repo-wide
 
 ## Environment
 
-One file: `apps/web/.env` (gitignored) — Next.js reads only the app
-folder's own `.env`, and the db scripts load that same file.
+Create `apps/web/.env` (gitignored):
 
 ```sh
 DB_FILE_NAME=local.db
@@ -30,8 +29,3 @@ pnpm dlx auth@latest create-admin \
   --email admin@example.com --name "Admin" \
   --password <password> --role admin --yes
 ```
-
-Notes: run from the repo root — `--config` points at the auth config, and
-the CLI takes `BETTER_AUTH_SECRET` from the process environment (nothing
-loads `.env` for it). Non-interactive runs require `--password`.
-
