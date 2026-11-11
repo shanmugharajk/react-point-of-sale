@@ -1,0 +1,28 @@
+{
+  "name": "@point-of-sale/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "check-types": "tsc --noEmit",
+    "db:push": "drizzle-kit push --config=drizzle.config.ts",
+    "db:seed": "tsx --env-file=../../.env src/scripts/seed.ts",
+    "db:studio": "drizzle-kit studio --config=drizzle.config.ts"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "drizzle-orm": "1.0.0-rc.5"
+  },
+  "devDependencies": {
+    "@point-of-sale/typescript-config": "workspace:*",
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^20",
+    "drizzle-kit": "1.0.0-rc.5",
+    "tsx": "^4.23.15",
+    "typescript": "7.0.2"
+  }
+}
