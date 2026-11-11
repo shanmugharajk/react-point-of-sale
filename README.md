@@ -24,8 +24,14 @@ BETTER_AUTH_URL=http://localhost:3000
 ## First admin
 
 ```sh
-pnpm dlx auth@latest create-admin --email admin@example.com --name "Admin" --role admin --yes
+export $(grep BETTER_AUTH_SECRET .env | xargs)
+pnpm dlx auth@latest create-admin \
+  --config apps/web/lib/auth.ts \
+  --email admin@example.com --name "Admin" \
+  --password <password> --role admin --yes
 ```
 
-Load `BETTER_AUTH_SECRET` first (`--env-file=.env` or export it).
+Notes: run from the repo root — `--config` points at the auth config, and
+the CLI takes `BETTER_AUTH_SECRET` from the process environment (nothing
+loads `.env` for it). Non-interactive runs require `--password`.
 
