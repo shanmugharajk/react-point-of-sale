@@ -2,7 +2,7 @@
 
 Full-stack point-of-sale app — Next.js monorepo with a shared data layer and auth.
 
-## Develop
+## Commands
 
 ```sh
 pnpm dev      # all apps in dev mode via Turborepo
@@ -12,8 +12,8 @@ pnpm lint     # biome, repo-wide
 
 ## Environment
 
-`.env` at the repo root (gitignored). Next.js only reads the app folder's
-own `.env`, so keep `apps/web/.env` a copy of it.
+One file: `apps/web/.env` (gitignored) — Next.js reads only the app
+folder's own `.env`, and the db scripts load that same file.
 
 ```sh
 DB_FILE_NAME=local.db
@@ -24,7 +24,7 @@ BETTER_AUTH_URL=http://localhost:3000
 ## First admin
 
 ```sh
-export $(grep BETTER_AUTH_SECRET .env | xargs)
+export $(grep BETTER_AUTH_SECRET apps/web/.env | xargs)
 pnpm dlx auth@latest create-admin \
   --config apps/web/lib/auth.ts \
   --email admin@example.com --name "Admin" \

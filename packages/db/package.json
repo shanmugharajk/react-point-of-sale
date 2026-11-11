@@ -10,7 +10,7 @@
     "build": "tsc --noEmit",
     "check-types": "tsc --noEmit",
     "db:push": "drizzle-kit push --config=drizzle.config.ts",
-    "db:seed": "tsx --env-file=../../.env src/scripts/seed.ts",
+    "db:seed": "tsx --env-file=../../apps/web/.env src/scripts/seed.ts",
     "db:studio": "drizzle-kit studio --config=drizzle.config.ts"
   },
   "dependencies": {
