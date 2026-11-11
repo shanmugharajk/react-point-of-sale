@@ -1,6 +1,6 @@
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-// Disposable pipeline-proving scaffolding — never a real app table.
+// Scaffolding to prove the pipeline — delete when real tables arrive.
 export const examples = sqliteTable("examples", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
