@@ -1,6 +1,6 @@
 # point-of-sale
 
-Simple point-of-sale app — Next.js monorepo with a shared data layer and auth.
+Simple point-of-sale app built with Next.js, drizzle, SQLite and Turborepo.
 
 ## Commands
 
