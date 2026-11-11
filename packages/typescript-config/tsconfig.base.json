@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // one TypeScript law for every workspace package
+    "target": "ES2022",
+    "lib": ["es2022", "DOM", "DOM.Iterable"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true, // type-only imports stay explicit
+    "erasableSyntaxOnly": true, // no enums/namespaces/parameter properties
+    "strict": true,
+    "noUncheckedIndexedAccess": true, // index access returns T | undefined
+    "noImplicitOverride": true, // overrides must be declared
+    "noFallthroughCasesInSwitch": true, // switch cases must break or return
+    "noUncheckedSideEffectImports": true, // side-effect imports must resolve
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "incremental": false
+  }
+}

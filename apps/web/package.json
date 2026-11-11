@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.2",
+    "@point-of-sale/typescript-config": "workspace:*",
     "@tailwindcss/turbopack": "4.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
