@@ -1,0 +1,20 @@
+{
+  "name": "point-of-sale",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.2",
+    "turbo": "2.10.12",
+    "typescript": "7.0.2"
+  },
+  "packageManager": "pnpm@12.15.0",
+  "engines": {
+    "node": ">=24"
+  }
+}
