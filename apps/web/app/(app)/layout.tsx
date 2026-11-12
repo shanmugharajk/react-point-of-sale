@@ -9,9 +9,13 @@ import {
 } from "~/components/ui/sidebar";
 import { getSession } from "~/lib/session";
 
+type ProtectedShellProps = {
+  children: React.ReactNode;
+};
+
 // The one real auth gate — the proxy only checks that a cookie exists.
 // Suspense is required: cache components reject headers() in a layout body.
-async function ProtectedShell({ children }: { children: React.ReactNode }) {
+async function ProtectedShell({ children }: ProtectedShellProps) {
   const session = await getSession();
   if (!session) {
     redirect("/login");
@@ -30,7 +34,11 @@ async function ProtectedShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+type AppLayoutProps = {
+  children: React.ReactNode;
+};
+
+export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <Suspense fallback={null}>
       <ProtectedShell>{children}</ProtectedShell>

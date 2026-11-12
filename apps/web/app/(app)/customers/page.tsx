@@ -25,11 +25,7 @@ function parsePageParam(raw: string | string[] | undefined): number {
   return parsed.success ? parsed.data.page : 1;
 }
 
-async function CustomersView({
-  searchParams,
-}: {
-  searchParams: CustomersPageProps["searchParams"];
-}) {
+async function CustomersView({ searchParams }: CustomersPageProps) {
   const params = await searchParams;
   const page = parsePageParam(params.page);
   const session = await getSession();

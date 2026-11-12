@@ -27,6 +27,10 @@ type SidebarUser = {
   role?: string | null;
 };
 
+type AppSidebarProps = {
+  user: SidebarUser;
+};
+
 const NAV_ITEMS: { title: string; href: string; icon: LucideIcon }[] = [
   { title: "Home", href: "/", icon: House },
   { title: "Customers", href: "/customers", icon: Users },
@@ -43,7 +47,7 @@ function initialsOf(name: string) {
   );
 }
 
-export function AppSidebar({ user }: { user: SidebarUser }) {
+export function AppSidebar({ user }: AppSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
 
