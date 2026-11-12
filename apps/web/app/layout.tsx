@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "point-of-sale",
-  description: "Point-of-sale app",
+  title: "Point of Sale",
+  description: "Point of Sale",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
