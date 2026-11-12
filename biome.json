@@ -38,6 +38,18 @@
       }
     }
   },
+  "overrides": [
+    {
+      "includes": ["apps/web/components/ui/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noLabelWithoutControl": "off"
+          }
+        }
+      }
+    }
+  ],
   "assist": {
     "actions": {
       "source": {

@@ -1,7 +1,7 @@
 # Roadmap
 
-The growing plan. Status: **Phase 2 — in progress, login vertical
-next (bootstrap done).**
+The growing plan. Status: **Phase 2 — in progress, sidebar shell
+next (login vertical done).**
 
 ---
 
