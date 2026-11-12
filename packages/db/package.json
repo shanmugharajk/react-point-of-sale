@@ -9,18 +9,20 @@
   "scripts": {
     "build": "tsc --noEmit",
     "check-types": "tsc --noEmit",
-    "db:push": "drizzle-kit push --config=drizzle.config.ts",
-    "db:seed": "tsx --env-file=../../apps/web/.env src/scripts/seed.ts",
-    "db:studio": "drizzle-kit studio --config=drizzle.config.ts"
+    "db:push": "dotenv -e ../../apps/web/.env -- drizzle-kit push --config=drizzle.config.ts",
+    "db:seed": "dotenv -e ../../apps/web/.env -- tsx src/seed.ts",
+    "db:studio": "dotenv -e ../../apps/web/.env -- drizzle-kit studio --config=drizzle.config.ts"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",
-    "drizzle-orm": "1.0.0-rc.5"
+    "drizzle-orm": "1.0.0-rc.5",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@point-of-sale/typescript-config": "workspace:*",
     "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^20",
+    "dotenv-cli": "^8.0.0",
     "drizzle-kit": "1.0.0-rc.5",
     "tsx": "^4.23.15",
     "typescript": "7.0.2"

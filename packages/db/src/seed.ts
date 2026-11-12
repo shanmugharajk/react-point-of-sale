@@ -1,5 +1,5 @@
-import { db } from "../index";
-import { examples } from "../schema";
+import { db } from "./db";
+import { examples } from "./schema";
 
 async function main(): Promise<void> {
   await db.delete(examples);

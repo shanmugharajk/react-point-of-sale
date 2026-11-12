@@ -15,10 +15,13 @@ pnpm lint     # biome, repo-wide
 Create `apps/web/.env` (gitignored):
 
 ```sh
-DB_FILE_NAME=local.db
+DB_FILE_NAME=/Users/you/Code/react-point-of-sale/apps/web/local.db
 BETTER_AUTH_SECRET=<openssl rand -base64 24>
 BETTER_AUTH_URL=http://localhost:3000
 ```
+
+`DB_FILE_NAME` must be an absolute path — relative values are rejected (each
+tool would otherwise resolve them against its own folder). `*.db` is gitignored.
 
 ## First admin
 

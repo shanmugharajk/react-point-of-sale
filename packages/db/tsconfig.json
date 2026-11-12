@@ -4,10 +4,7 @@
     // nothing here emits — source-exported internal package
     "declaration": false,
     "declarationMap": false,
-    "noEmit": true,
-    // Bundler: NodeNext forces .js suffixes Turbopack cannot resolve to .ts
-    "module": "esnext",
-    "moduleResolution": "bundler"
+    "noEmit": true
   },
   "include": ["src/**/*.ts", "drizzle.config.ts"],
   "exclude": ["node_modules"]
