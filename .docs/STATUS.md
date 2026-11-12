@@ -1,9 +1,9 @@
 # Status
 
 Now: —
-Next: E3 customers vertical
-Last done: E2 sidebar shell — shadcn sidebar shell, theme switching,
-protected (app) route group
+Next: E3 sell action — bill + stock + ledger in one transaction
+Last done: E3-T4 customers CRUD — services/contracts packages, audit
+log, role-gated UI, verified in browser (admin + staff)
 
 ## Epics
 
@@ -13,5 +13,5 @@ protected (app) route group
   protected home, sign out
 - [x] [e2-sidebar-shell](epics/e2-sidebar-shell.md) — bare sidebar layout,
   protected route group
-- [ ] [e3-customers-vertical](epics/e3-customers-vertical.md) — CRUD proves
-  transactions/audit/money
+- [~] [e3-customers-vertical](epics/e3-customers-vertical.md) — CRUD +
+  audit proven; sell action open

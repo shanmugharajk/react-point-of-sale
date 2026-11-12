@@ -1,0 +1,11 @@
+{
+  "extends": "@point-of-sale/typescript-config/base",
+  "compilerOptions": {
+    // nothing here emits — source-exported internal package
+    "declaration": false,
+    "declarationMap": false,
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

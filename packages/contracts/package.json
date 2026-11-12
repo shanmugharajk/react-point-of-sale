@@ -1,0 +1,20 @@
+{
+  "name": "@point-of-sale/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@point-of-sale/typescript-config": "workspace:*",
+    "typescript": "7.0.2"
+  }
+}

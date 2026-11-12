@@ -1,0 +1,22 @@
+{
+  "name": "@point-of-sale/services",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@point-of-sale/contracts": "workspace:*",
+    "@point-of-sale/db": "workspace:*",
+    "drizzle-orm": "1.0.0-rc.5"
+  },
+  "devDependencies": {
+    "@point-of-sale/typescript-config": "workspace:*",
+    "typescript": "7.0.2"
+  }
+}

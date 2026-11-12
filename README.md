@@ -10,7 +10,7 @@ pnpm build      # build every package; type-checking runs as part of the build
 pnpm lint       # biome, repo-wide
 
 pnpm db:push    # create/update tables in the SQLite db (drizzle-kit)
-pnpm db:seed    # reset and seed the examples table
+pnpm db:seed    # seed sample customers (skips if the table has rows)
 pnpm db:studio  # browse the database in the browser (drizzle studio)
 ```
 
@@ -39,7 +39,7 @@ points at, plus any `-wal`/`-shm`/`-journal` siblings:
 ```sh
 rm -f /path/from/DB_FILE_NAME*
 pnpm db:push    # recreate all tables
-pnpm db:seed    # seed the examples
+pnpm db:seed    # seed sample customers
 ```
 
 Then re-create users as below — same command, `--role admin` or `--role user`.

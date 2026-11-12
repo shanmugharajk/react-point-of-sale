@@ -1,2 +1,3 @@
+export * from "./audit.schema";
 export * from "./auth.schema";
-export * from "./examples.schema";
+export * from "./customers.schema";

@@ -6,3 +6,6 @@ import { auth } from "./auth";
 export const getSession = cache(async () => {
   return auth.api.getSession({ headers: await headers() });
 });
+
+// What getSession returns with the signed-out null removed.
+export type Session = NonNullable<Awaited<ReturnType<typeof getSession>>>;
