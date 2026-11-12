@@ -4,8 +4,14 @@
     // one TypeScript law for every workspace package
     "target": "ES2022",
     "lib": ["es2022", "DOM", "DOM.Iterable"],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    // Every consumer is bundler-resolved: Turbopack compiles the app and the
+    // source-exported internal packages; tsx (esbuild) runs the scripts.
+    // Bundler mode keeps imports extensionless ("./db"), which all of them
+    // resolve. "NodeNext" is only for a package whose compiled .js is run by
+    // plain node — it demands ".js" suffixes in TS source, which Turbopack
+    // and tsx cannot map back to the .ts files on disk.
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "moduleDetection": "force",
     "esModuleInterop": true,
     "isolatedModules": true,
