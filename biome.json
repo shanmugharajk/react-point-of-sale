@@ -14,6 +14,11 @@
       "tailwindDirectives": true
     }
   },
+  "json": {
+    "parser": {
+      "allowComments": true
+    }
+  },
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
@@ -37,10 +42,12 @@
     "actions": {
       "source": {
         "organizeImports": {
+          "level": "on",
           "options": {
             "groups": [
+              ":NODE:",
+              ":BLANK_LINE:",
               ":PACKAGE:",
-              "!~/**",
               ":BLANK_LINE:",
               "~/**",
               ":BLANK_LINE:",
