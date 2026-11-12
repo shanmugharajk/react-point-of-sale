@@ -5,10 +5,17 @@ Simple point-of-sale app built with Next.js, drizzle, SQLite and Turborepo.
 ## Commands
 
 ```sh
-pnpm dev      # all apps in dev mode via Turborepo
-pnpm build    # build every package; type-checking runs as part of the build
-pnpm lint     # biome, repo-wide
+pnpm dev        # all apps in dev mode via Turborepo
+pnpm build      # build every package; type-checking runs as part of the build
+pnpm lint       # biome, repo-wide
+
+pnpm db:push    # create/update tables in the SQLite db (drizzle-kit)
+pnpm db:seed    # reset and seed the examples table
+pnpm db:studio  # browse the database in the browser (drizzle studio)
 ```
+
+The `db:*` commands delegate to `packages/db` and load `apps/web/.env`
+themselves — run them from anywhere in the repo.
 
 ## Environment
 
@@ -22,6 +29,20 @@ BETTER_AUTH_URL=http://localhost:3000
 
 `DB_FILE_NAME` must be an absolute path — relative values are rejected (each
 tool would otherwise resolve them against its own folder). `*.db` is gitignored.
+
+## Reset the database
+
+Wipes everything — including users — and rebuilds from scratch. Stop the dev
+server first; it holds the db file open. Delete the file `DB_FILE_NAME`
+points at, plus any `-wal`/`-shm`/`-journal` siblings:
+
+```sh
+rm -f /path/from/DB_FILE_NAME*
+pnpm db:push    # recreate all tables
+pnpm db:seed    # seed the examples
+```
+
+Then re-create users as below — same command, `--role admin` or `--role user`.
 
 ## First admin
 
