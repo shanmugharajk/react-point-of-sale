@@ -26,7 +26,9 @@ tool would otherwise resolve them against its own folder). `*.db` is gitignored.
 ## First admin
 
 ```sh
-export $(grep BETTER_AUTH_SECRET apps/web/.env | xargs)
+# the CLI runs outside Next/dotenv — it needs the whole env file
+# (auth config validates BETTER_AUTH_SECRET, URL and DB_FILE_NAME)
+export $(grep -v '^#' apps/web/.env | xargs)
 pnpm dlx auth@latest create-admin \
   --config apps/web/lib/auth.ts \
   --email admin@example.com --name "Admin" \
