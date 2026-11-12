@@ -1,5 +1,7 @@
 # Project docs
 
+- [`STATUS.md`](STATUS.md) — the cursor: the one task in progress, what's
+  next, the epic index.
 - [`roadmap.md`](roadmap.md) — the growing plan: phases, verticals, epic order,
   and where we currently stand.
 - `discovery/` — what we're building and why, before code.
@@ -10,4 +12,5 @@
   the external research references.
 - `gotchas/` — problems that bit us, one file per area.
   [`setup.md`](gotchas/setup.md) covers standing the repo up: env loading,
-  imports, generated files, native builds.
+  imports, generated files, native builds. [`auth.md`](gotchas/auth.md)
+  covers the auth vertical: blocking pages, proxy redirects, CSRF in curl.
