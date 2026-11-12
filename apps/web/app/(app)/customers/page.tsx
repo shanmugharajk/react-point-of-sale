@@ -25,8 +25,13 @@ function parsePageParam(raw: string | string[] | undefined): number {
   return parsed.success ? parsed.data.page : 1;
 }
 
-// With cacheComponents on, the session read must sit inside Suspense.
-async function CustomersView({ page }: { page: number }) {
+async function CustomersView({
+  searchParams,
+}: {
+  searchParams: CustomersPageProps["searchParams"];
+}) {
+  const params = await searchParams;
+  const page = parsePageParam(params.page);
   const session = await getSession();
   if (!session) {
     redirect("/login");
@@ -75,12 +80,10 @@ async function CustomersView({ page }: { page: number }) {
 export default async function CustomersPage({
   searchParams,
 }: CustomersPageProps) {
-  const params = await searchParams;
-
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
       <Suspense fallback={null}>
-        <CustomersView page={parsePageParam(params.page)} />
+        <CustomersView searchParams={searchParams} />
       </Suspense>
     </div>
   );
