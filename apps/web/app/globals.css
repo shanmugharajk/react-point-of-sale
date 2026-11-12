@@ -14,6 +14,14 @@
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -63,6 +71,14 @@
   /* sharp corners everywhere — the whole shadcn radius scale collapses
      to 0 from this one value */
   --radius: 0rem;
+  --sidebar: #f8f8f8;
+  --sidebar-foreground: #17171a;
+  --sidebar-primary: #7d53dd;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #ededee;
+  --sidebar-accent-foreground: #17171a;
+  --sidebar-border: rgba(0, 0, 0, 0.09);
+  --sidebar-ring: #8b72cf;
 }
 
 .dark {
@@ -86,6 +102,14 @@
   --border: rgba(255, 255, 255, 0.07);
   --input: rgba(255, 255, 255, 0.1);
   --ring: #a78bfa;
+  --sidebar: #0c0c0e;
+  --sidebar-foreground: #e9e9ee;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #19191b;
+  --sidebar-accent-foreground: #e9e9ee;
+  --sidebar-border: rgba(255, 255, 255, 0.07);
+  --sidebar-ring: #a78bfa;
 }
 
 @layer base {

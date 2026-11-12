@@ -24,7 +24,7 @@ export default function LoginPage() {
             Sign in to your shop account
           </p>
         </div>
-        <Suspense>
+        <Suspense fallback={null}>
           <SignedInRedirect />
         </Suspense>
         <LoginForm />

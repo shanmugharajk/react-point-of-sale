@@ -1,9 +1,9 @@
 import { getSessionCookie } from "better-auth/cookies";
 import { type NextRequest, NextResponse } from "next/server";
 
-// Optimistic gate only — no DB check: the proxy runs on every request,
-// prefetches included (Next's auth guide), and pages do the real validation
-// via getSession(). /login stays reachable so a stale cookie can't ping-pong.
+// Optimistic cookie gate — no DB here, it runs on every request (prefetches
+// included); the (app) layout does the real check. /login exempt so a stale
+// cookie can't ping-pong.
 const PUBLIC_PATHS = ["/login"];
 
 export function proxy(request: NextRequest) {

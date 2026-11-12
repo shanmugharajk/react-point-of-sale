@@ -38,7 +38,7 @@ export function LoginForm() {
         return;
       }
     } catch {
-      // HTTP errors resolve as values; only network-level failures throw.
+      // better-auth resolves HTTP errors as values; only network failures throw.
       setError("root", {
         type: "server",
         message: "Something went wrong — try again",
