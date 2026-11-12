@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
-// One generic append-only audit table (D5), not per-entity tables.
+// One generic append-only audit table, not per-entity tables.
 // No FK on actorId: the audit trail must survive user deletion.
 export const auditLog = sqliteTable(
   "audit_log",

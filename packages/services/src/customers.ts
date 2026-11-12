@@ -30,7 +30,7 @@ function toDto(row: CustomerRow): CustomerDto {
 }
 
 export const customersService = {
-  // Counter staff may add customers (D51) — no role gate on create.
+  // Counter staff may add customers — no role gate on create.
   // Re-parse defensively: actions already validate, but this is the layer
   // every future caller goes through.
   async create(input: CustomerCreateInput, actor: Actor): Promise<CustomerDto> {

@@ -6,6 +6,7 @@ import {
   CustomerIdSchema,
   CustomerUpdateSchema,
   fieldErrorsFrom,
+  RoleSchema,
 } from "@point-of-sale/contracts";
 import {
   type Actor,
@@ -31,10 +32,13 @@ const INTERNAL: ActionFailure = {
   message: "Something went wrong — try again",
 };
 
-// Transports derive the actor from the session; services enforce
-// authorization against it. better-auth leaves role unset for non-admins.
+// better-auth hands us role as a loose string. This parse is the one place
+// it becomes our Role union — unknown values fall back to "user".
 function toActor(session: Session): Actor {
-  return { userId: session.user.id, role: session.user.role ?? "user" };
+  return {
+    userId: session.user.id,
+    role: RoleSchema.catch("user").parse(session.user.role),
+  };
 }
 
 // First issue becomes the message; each field keeps its own first message.

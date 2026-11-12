@@ -13,7 +13,7 @@ export const customers = sqliteTable(
       .primaryKey()
       .$defaultFn(() => crypto.randomUUID()),
     name: text("name").notNull(),
-    // The customer identity (D24/D25) — one active customer per number.
+    // The customer identity — one active customer per number.
     mobile: text("mobile").notNull(),
     email: text("email"),
     address: text("address"),

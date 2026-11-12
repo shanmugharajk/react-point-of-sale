@@ -4,7 +4,7 @@ function normalizeMobile(raw: string): string {
   return raw.replace(/[\s-]/g, "");
 }
 
-// The mobile IS the customer identity (D24/D25): one active customer per
+// The mobile IS the customer identity: one active customer per
 // number. People type it with spaces or hyphens — normalize first, then
 // validate, so every layer accepts the same input.
 const MobileSchema = z

@@ -276,6 +276,9 @@ importers:
 
   packages/db:
     dependencies:
+      '@point-of-sale/contracts':
+        specifier: workspace:*
+        version: link:../contracts
       better-sqlite3:
         specifier: ^13.0.3
         version: 13.0.3

@@ -29,7 +29,7 @@ type CustomersTableProps = {
   isAdmin: boolean;
 };
 
-// The shop is IST (D48) — format dates in Asia/Kolkata, no new dependency.
+// The shop runs on IST — format dates in Asia/Kolkata, no date library.
 const dateFormatter = new Intl.DateTimeFormat("en-IN", {
   timeZone: "Asia/Kolkata",
   dateStyle: "medium",

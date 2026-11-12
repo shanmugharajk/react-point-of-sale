@@ -14,6 +14,7 @@
     "db:studio": "dotenv -e ../../apps/web/.env -- drizzle-kit studio --config=drizzle.config.ts"
   },
   "dependencies": {
+    "@point-of-sale/contracts": "workspace:*",
     "better-sqlite3": "^13.0.3",
     "drizzle-orm": "1.0.0-rc.5",
     "zod": "^4.6.7"

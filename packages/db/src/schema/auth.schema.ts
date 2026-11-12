@@ -1,3 +1,4 @@
+import { ROLES } from "@point-of-sale/contracts";
 import { defineRelations, sql } from "drizzle-orm";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
@@ -16,7 +17,7 @@ export const user = sqliteTable("user", {
     .default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
     .$onUpdate(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: text("role"),
+  role: text("role", { enum: ROLES }),
   banned: integer("banned", { mode: "boolean" }).default(false),
   banReason: text("ban_reason"),
   banExpires: integer("ban_expires", { mode: "timestamp_ms" }),
@@ -94,7 +95,9 @@ export const verification = sqliteTable(
 
 // HAND-PORT to drizzle 1.0-rc: the auth CLI emits v1 relations(...),
 // removed in the rc. r is a per-table proxy over COLUMNS; the one side is
-// explicit (push rejects FK inference). Re-apply after regeneration.
+// explicit (push rejects FK inference). The CLI also regenerates
+// `role: text("role")` plain, dropping the ROLES enum — re-apply BOTH
+// after regeneration: the relations proxy and the role enum.
 export const authRelations = defineRelations(
   { user, session, account, verification },
   (r) => ({
