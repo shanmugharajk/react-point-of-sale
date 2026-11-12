@@ -2,10 +2,15 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "biomejs.biome",
   "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit"
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "explicit"
   },
   "files.associations": {
     "**/globals.css": "tailwindcss"
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": ".gitignore, .npmrc, biome.json, local.db, pnpm-lock.yaml, pnpm-workspace.yaml, turbo.json"
+  },
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }
