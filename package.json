@@ -11,11 +11,16 @@
     "lint": "biome lint",
     "check": "biome check",
     "check:fix": "biome check --write",
-    "prepare": "lefthook install"
+    "prepare": "lefthook install",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
     "@fontsource-variable/geist": "^5.3.0",
+    "@libsql/client": "^0.18.0",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "0.10.14",
     "@tanstack/react-router": "1.170.46",
@@ -23,6 +28,7 @@
     "@tanstack/react-start": "1.169.5",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.5.2",
+    "drizzle-orm": "1.0.0-rc.5",
     "lucide-react": "^1.72.0",
     "nitro": "3.0.260610-beta",
     "react": "^19.2.0",
@@ -38,6 +44,7 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
+    "drizzle-kit": "1.0.0-rc.5",
     "lefthook": "^2.2.2",
     "typescript": "^6.0.2",
     "vite": "^8.0.0"
