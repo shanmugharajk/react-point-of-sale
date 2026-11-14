@@ -23,11 +23,20 @@ export function recordAudit(executor: AuditExecutor, entry: AuditEntry) {
   return executor.insert(auditLog).values(entry)
 }
 
+// Dates are separate objects even when equal, so compare their time instead.
+function comparableValue(value: unknown) {
+  return value instanceof Date ? value.getTime() : value
+}
+
 // Keeps only the fields whose value actually changed.
 export function diffChanges(before: FieldValues, after: FieldValues) {
   const changes: AuditChanges = {}
   for (const field of Object.keys(after)) {
-    if (before[field] !== after[field]) {
+    // Undefined means the field was not part of the update, like Drizzle treats it.
+    if (after[field] === undefined) {
+      continue
+    }
+    if (comparableValue(before[field]) !== comparableValue(after[field])) {
       changes[field] = { from: before[field] ?? null, to: after[field] }
     }
   }
