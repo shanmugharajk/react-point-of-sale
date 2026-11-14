@@ -18,7 +18,7 @@ A point-of-sale app for small shops. v2 rewrite (the old v1 lives on the `master
 - `src/routes/`: file-based routes; `__root.tsx` holds the HTML shell and `<head>`
 - `src/routeTree.gen.ts`: generated, never edit
 - `public/`: static assets served at `/`
-- `docs/`: architecture decisions (`docs/README.md` is the index). Read the relevant one before changing that area; add a numbered file when we decide something new
+- `docs/`: `product/` holds what the shop needs (read `product/mvp-1.md` before building a feature); `decisions/` holds engineering decisions (add a numbered file when we decide something new). `docs/README.md` is the index
 - Import alias: `~/*` → `src/*`
 
 ## Conventions

@@ -1,6 +1,11 @@
 # Docs
 
-Architecture decisions live in `decisions/`, one short file per decision, numbered. Mark old ones superseded instead of deleting them.
+- `product/`: what the shop needs (scope, business rules). Read before building or changing a feature.
+- `decisions/`: how we build it. One short file per engineering decision, numbered. Mark old ones superseded instead of deleting them.
+
+## Product
+
+- [MVP 1.0: scope and money rules](product/mvp-1.md)
 
 ## Decisions
 
