@@ -69,4 +69,5 @@ Tick a step only after clicking through its "done when" in the running app.
 - [ ] 7. Customer payments. Done when: an opening balance can be entered for customers who already owe money, a later payment lowers the balance and the customer page shows every bill and payment.
 - [ ] 8. Expenses and salaries. Done when: admin adds an expense type, an expense and a salary payment; employees cannot see them.
 - [ ] 9. Audit screen. Done when: admin sees who did each change above, and nobody can edit or delete a row.
-- [ ] 10. Reports (only after 1-9). Done when: a month shows sales, profit, pending and money collected, and old debts are not counted as profit twice.
+- [ ] 10. UI polish. Done when: layout, navigation, tables, forms and empty states look consistent on every screen, and each screen works at phone width.
+- [ ] 11. Reports (only after 1-10). Done when: a month shows sales, profit, pending and money collected, and old debts are not counted as profit twice.
