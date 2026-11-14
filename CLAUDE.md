@@ -18,12 +18,14 @@ A point-of-sale app for small shops. v2 rewrite (the old v1 lives on the `master
 - `src/routes/`: file-based routes; `__root.tsx` holds the HTML shell and `<head>`
 - `src/routeTree.gen.ts`: generated, never edit
 - `public/`: static assets served at `/`
+- `docs/`: architecture decisions (`docs/README.md` is the index). Read the relevant one before changing that area; add a numbered file when we decide something new
 - Import alias: `~/*` → `src/*`
 
 ## Conventions
 - Define tables with `snakeCase.table` so camelCase keys map to snake_case columns (auth tables are generated, leave them)
 - Single quotes, no semicolons, 2-space indent (Biome enforces it)
 - Prefer the simplest thing that works; no speculative abstractions
+- Business logic goes in `src/server/services` (no TanStack imports), Zod schemas in `src/schemas`; server functions stay thin wrappers (see `docs/`)
 - Imports: external, blank line, `~/` alias, blank line, `./` relative (Biome enforces order). Use the alias for anything outside the current directory; keep `.css` imports in the same groups
 - Name every type (no inline object types in props or params) and every handler (no multi-line inline methods)
 - Full descriptive names, no abbreviations (`event`, not `e`)
