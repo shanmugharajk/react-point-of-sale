@@ -41,8 +41,8 @@ export function baseColumns() {
   }
 }
 
-// Master data: never deleted, only marked inactive.
-export function masterColumns() {
+// Reference data: never deleted, only marked inactive.
+export function referenceColumns() {
   return {
     ...baseColumns(),
     isActive: int({ mode: 'boolean' }).notNull().default(true),
