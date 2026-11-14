@@ -1,0 +1,35 @@
+import type { db } from '~/db'
+import {
+  type AuditAction,
+  type AuditChanges,
+  auditLog,
+} from '~/db/audit-schema'
+
+// Works with the db itself or a transaction handle, so callers can log inside their transaction.
+export type AuditExecutor = Pick<typeof db, 'insert'>
+
+export type AuditEntry = {
+  userId: string
+  action: AuditAction
+  tableName: string
+  recordId: string
+  changes: AuditChanges
+  reason?: string
+}
+
+type FieldValues = Record<string, unknown>
+
+export function recordAudit(executor: AuditExecutor, entry: AuditEntry) {
+  return executor.insert(auditLog).values(entry)
+}
+
+// Keeps only the fields whose value actually changed.
+export function diffChanges(before: FieldValues, after: FieldValues) {
+  const changes: AuditChanges = {}
+  for (const field of Object.keys(after)) {
+    if (before[field] !== after[field]) {
+      changes[field] = { from: before[field] ?? null, to: after[field] }
+    }
+  }
+  return changes
+}
