@@ -6,6 +6,7 @@ import {
   useRouter,
 } from '@tanstack/react-router'
 
+import { Button, buttonVariants } from '~/components/ui/button'
 import { getSession } from '~/lib/auth.functions'
 import { authClient } from '~/lib/auth-client'
 import { Role } from '~/lib/roles'
@@ -19,8 +20,12 @@ export const Route = createFileRoute('/_protected')({
   component: ProtectedLayout,
 })
 
-const navLinkClass = 'text-muted-foreground hover:text-foreground'
-const activeNavLinkProps = { className: 'text-foreground font-medium' }
+// Router marks the current page's link with data-status="active".
+const navLinkClass = buttonVariants({
+  variant: 'ghost',
+  size: 'sm',
+  className: 'data-[status=active]:bg-muted',
+})
 
 function ProtectedLayout() {
   const { user, role } = Route.useRouteContext()
@@ -37,22 +42,18 @@ function ProtectedLayout() {
         <Link to="/" className="font-semibold">
           Point of Sale
         </Link>
-        <nav className="flex flex-1 gap-4 text-sm">
+        <nav className="flex flex-1 gap-1">
           {role === Role.Admin && (
-            <Link
-              to="/admin/product-types"
-              className={navLinkClass}
-              activeProps={activeNavLinkProps}
-            >
+            <Link to="/admin/product-types" className={navLinkClass}>
               Product types
             </Link>
           )}
         </nav>
-        <div className="text-sm">
+        <div className="flex items-center gap-2 text-sm">
           {user.name} ({role})
-          <button type="button" onClick={signOut} className="ml-3 underline">
+          <Button variant="ghost" size="sm" onClick={signOut}>
             Sign out
-          </button>
+          </Button>
         </div>
       </header>
       <Outlet />

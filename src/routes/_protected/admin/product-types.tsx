@@ -2,8 +2,18 @@ import { createFileRoute, useRouter } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { NameForm } from '~/components/name-form'
+import { Badge } from '~/components/ui/badge'
 import { Button } from '~/components/ui/button'
-import { cn, errorMessage } from '~/lib/utils'
+import { FieldError } from '~/components/ui/field'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '~/components/ui/table'
+import { errorMessage } from '~/lib/utils'
 import {
   createProductType,
   listProductTypes,
@@ -25,6 +35,7 @@ function ProductTypesPage() {
 
   async function handleCreate(name: string) {
     await createProductType({ data: { name } })
+
     await router.invalidate()
   }
 
@@ -42,17 +53,28 @@ function ProductTypesPage() {
           onSave={handleCreate}
         />
       </div>
-      {productTypes.length === 0 ? (
-        <p className="mt-6 text-sm text-muted-foreground">
-          No product types yet.
-        </p>
-      ) : (
-        <ul className="mt-6 divide-y rounded-lg border">
-          {productTypes.map((productType) => (
-            <ProductTypeRow key={productType.id} productType={productType} />
-          ))}
-        </ul>
-      )}
+      <Table className="mt-6">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {productTypes.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={3} className="text-muted-foreground">
+                No product types yet.
+              </TableCell>
+            </TableRow>
+          ) : (
+            productTypes.map((productType) => (
+              <ProductTypeRow key={productType.id} productType={productType} />
+            ))
+          )}
+        </TableBody>
+      </Table>
     </div>
   )
 }
@@ -72,12 +94,14 @@ function ProductTypeRow({ productType }: ProductTypeRowProps) {
 
   async function handleRename(name: string) {
     await updateProductType({ data: { id: productType.id, name } })
+
     setIsRenaming(false)
     await router.invalidate()
   }
 
   async function toggleActive() {
     setActionError('')
+
     try {
       await updateProductType({
         data: { id: productType.id, isActive: !productType.isActive },
@@ -90,43 +114,38 @@ function ProductTypeRow({ productType }: ProductTypeRowProps) {
 
   if (isRenaming) {
     return (
-      <li className="p-3">
-        <NameForm
-          initialName={productType.name}
-          submitLabel="Save"
-          onSave={handleRename}
-          onCancel={stopRenaming}
-        />
-      </li>
+      <TableRow>
+        <TableCell colSpan={3}>
+          <NameForm
+            initialName={productType.name}
+            submitLabel="Save"
+            onSave={handleRename}
+            onCancel={stopRenaming}
+          />
+        </TableCell>
+      </TableRow>
     )
   }
 
   return (
-    <li className="p-3">
-      <div className="flex items-center gap-2">
-        <span
-          className={cn(
-            'flex-1',
-            !productType.isActive && 'text-muted-foreground',
-          )}
-        >
-          {productType.name}
-        </span>
-        {!productType.isActive && (
-          <span className="rounded bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-            Inactive
-          </span>
-        )}
+    <TableRow>
+      <TableCell>
+        {productType.name}
+        {actionError && <FieldError>{actionError}</FieldError>}
+      </TableCell>
+      <TableCell>
+        <Badge variant={productType.isActive ? 'secondary' : 'outline'}>
+          {productType.isActive ? 'Active' : 'Inactive'}
+        </Badge>
+      </TableCell>
+      <TableCell className="space-x-2 text-right">
         <Button variant="ghost" size="sm" onClick={startRenaming}>
           Rename
         </Button>
         <Button variant="outline" size="sm" onClick={toggleActive}>
           {productType.isActive ? 'Mark inactive' : 'Mark active'}
         </Button>
-      </div>
-      {actionError && (
-        <p className="mt-1 text-sm text-destructive">{actionError}</p>
-      )}
-    </li>
+      </TableCell>
+    </TableRow>
   )
 }

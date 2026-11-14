@@ -2,8 +2,13 @@ import { createFileRoute, redirect, useRouter } from '@tanstack/react-router'
 import { useState } from 'react'
 
 import { Button } from '~/components/ui/button'
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '~/components/ui/field'
 import { Input } from '~/components/ui/input'
-import { Label } from '~/components/ui/label'
 import { getSession } from '~/lib/auth.functions'
 import { authClient } from '~/lib/auth-client'
 
@@ -36,30 +41,30 @@ function Login() {
       className="mx-auto flex min-h-svh max-w-sm flex-col justify-center gap-4 p-8"
     >
       <h1 className="text-2xl font-semibold">Sign in</h1>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="email">Email</Label>
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          required
-        />
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="password">Password</Label>
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="current-password"
-          required
-        />
-      </div>
-      {errorMessage && (
-        <p className="text-sm text-destructive">{errorMessage}</p>
-      )}
-      <Button type="submit">Sign in</Button>
+      <FieldGroup>
+        <Field>
+          <FieldLabel htmlFor="email">Email</FieldLabel>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="password">Password</FieldLabel>
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            required
+          />
+        </Field>
+        {errorMessage && <FieldError>{errorMessage}</FieldError>}
+        <Button type="submit">Sign in</Button>
+      </FieldGroup>
     </form>
   )
 }

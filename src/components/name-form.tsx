@@ -2,6 +2,7 @@ import { useForm } from '@tanstack/react-form'
 import { useState } from 'react'
 
 import { Button } from '~/components/ui/button'
+import { Field, FieldError } from '~/components/ui/field'
 import { Input } from '~/components/ui/input'
 import { errorMessage } from '~/lib/utils'
 import { nameFormSchema } from '~/schemas/name'
@@ -27,6 +28,7 @@ export function NameForm({
   onCancel,
 }: NameFormProps) {
   const [saveError, setSaveError] = useState('')
+
   const form = useForm({
     defaultValues: { name: initialName },
     validators: { onSubmit: nameFormSchema },
@@ -49,43 +51,39 @@ export function NameForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-1">
+    <form onSubmit={handleSubmit}>
       <form.Field name="name">
         {(field) => (
-          <div className="flex gap-2">
-            <Input
-              name={field.name}
-              value={field.state.value}
-              placeholder={placeholder}
-              aria-label="Name"
-              aria-invalid={field.state.meta.errors.length > 0}
-              autoFocus={Boolean(onCancel)}
-              onBlur={field.handleBlur}
-              onChange={(event) => field.handleChange(event.target.value)}
-            />
-            <form.Subscribe selector={(state) => state.isSubmitting}>
-              {(isSubmitting) => (
-                <Button type="submit" disabled={isSubmitting}>
-                  {submitLabel}
+          <Field data-invalid={!field.state.meta.isValid || Boolean(saveError)}>
+            <div className="flex gap-2">
+              <Input
+                name={field.name}
+                value={field.state.value}
+                placeholder={placeholder}
+                aria-label="Name"
+                aria-invalid={!field.state.meta.isValid}
+                autoFocus={Boolean(onCancel)}
+                onBlur={field.handleBlur}
+                onChange={(event) => field.handleChange(event.target.value)}
+              />
+              <form.Subscribe selector={(state) => state.isSubmitting}>
+                {(isSubmitting) => (
+                  <Button type="submit" disabled={isSubmitting}>
+                    {submitLabel}
+                  </Button>
+                )}
+              </form.Subscribe>
+              {onCancel && (
+                <Button type="button" variant="ghost" onClick={onCancel}>
+                  Cancel
                 </Button>
               )}
-            </form.Subscribe>
-            {onCancel && (
-              <Button type="button" variant="ghost" onClick={onCancel}>
-                Cancel
-              </Button>
-            )}
-          </div>
+            </div>
+            <FieldError errors={field.state.meta.errors} />
+            {saveError && <FieldError>{saveError}</FieldError>}
+          </Field>
         )}
       </form.Field>
-      <form.Subscribe selector={(state) => state.fieldMeta.name?.errors}>
-        {(errors) =>
-          errors?.[0] && (
-            <p className="text-sm text-destructive">{errors[0].message}</p>
-          )
-        }
-      </form.Subscribe>
-      {saveError && <p className="text-sm text-destructive">{saveError}</p>}
     </form>
   )
 }

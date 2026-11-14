@@ -27,8 +27,10 @@ A point-of-sale app for small shops. v2 rewrite (the old v1 lives on the `master
 - Prefer the simplest thing that works; no speculative abstractions
 - Business logic goes in `src/server/services` (no TanStack imports), Zod schemas in `src/schemas`; server functions stay thin wrappers (see `docs/`)
 - Server-only files (db, auth, services) end in `.server.ts`; throw `ServiceError` for messages the user should see
+- UI: shadcn for every control (`yes n | pnpm exec shadcn add <name>` keeps existing files); no native `button`/`input`/`select`/`table` or hand-rolled styling. Fix Biome issues in added files. Button-styled links: `<Link className={buttonVariants(...)}>`, never `<Button render={<Link>}>`
 - Imports: external, blank line, `~/` alias, blank line, `./` relative (Biome enforces order). Use the alias for anything outside the current directory; keep `.css` imports in the same groups
 - Name every type (no inline object types in props or params) and every handler (no multi-line inline methods)
+- Readability: a blank line between steps (fetch, check, write, audit, return); declare things next to their first use (hooks stay at the top); keep a file next to its only user, shared code in its shared folder
 - Full descriptive names, no abbreviations (`event`, not `e`)
 - Comments only when the code can't explain itself: plain words, the why, one line
 - Treat TypeScript deprecation hints as errors; use the replacement API
