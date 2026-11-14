@@ -10,7 +10,8 @@
     "format": "biome format --write",
     "lint": "biome lint",
     "check": "biome check",
-    "check:fix": "biome check --write"
+    "check:fix": "biome check --write",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -37,13 +38,8 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
+    "lefthook": "^2.2.2",
     "typescript": "^6.0.2",
     "vite": "^8.0.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "lightningcss"
-    ]
   }
 }
