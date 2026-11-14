@@ -2,6 +2,9 @@
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
   },
+  "files.associations": {
+    "**/global.css": "tailwindcss"
+  },
   "search.exclude": {
     "**/routeTree.gen.ts": true
   },
@@ -28,6 +31,12 @@
   },
   "[css]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "json.schemaDownload.trustedDomains": {
+    "https://ui.shadcn.com/": true
   },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

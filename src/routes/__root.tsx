@@ -2,7 +2,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import { createRootRoute, HeadContent, Scripts } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 
-import appCss from '../styles.css?url'
+import appCss from '~/global.css?url'
 
 export const Route = createRootRoute({
   head: () => ({
@@ -27,7 +27,16 @@ export const Route = createRootRoute({
     ],
   }),
   shellComponent: RootDocument,
+  notFoundComponent: NotFound,
 })
+
+function NotFound() {
+  return (
+    <div className="flex min-h-svh flex-col items-center justify-center gap-2">
+      <h1 className="text-2xl font-semibold">Page not found</h1>
+    </div>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
