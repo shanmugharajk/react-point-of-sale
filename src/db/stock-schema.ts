@@ -5,6 +5,7 @@ import { baseColumns, cancellableColumns } from './columns'
 import { products, vendors } from './reference-schema'
 
 // One delivery from a vendor. Vendor is optional so opening stock needs none.
+// Cancelling one sets its batches' quantity left to zero in the same transaction.
 export const stockReceipts = snakeCase.table('stock_receipts', {
   ...cancellableColumns(),
   vendorId: text().references(() => vendors.id),
@@ -33,6 +34,14 @@ export const stockBatches = snakeCase.table(
   (table) => [
     index('stock_batches_product_idx').on(table.productId),
     check('stock_batches_quantity_left_check', sql`${table.quantityLeft} >= 0`),
+    check(
+      'stock_batches_quantity_received_check',
+      sql`${table.quantityReceived} > 0`,
+    ),
+    check(
+      'stock_batches_prices_check',
+      sql`${table.costPricePaise} >= 0 and ${table.sellingPricePaise} >= 0`,
+    ),
   ],
 )
 

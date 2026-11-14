@@ -46,8 +46,14 @@ export const bills = snakeCase.table(
     discountPaise: int().notNull().default(0),
     extraChargesPaise: int().notNull().default(0),
     totalPaise: int().notNull(),
+    // Cash handed back when a paid bill is cancelled.
+    cashRefundPaise: int().notNull().default(0),
   },
-  (table) => [index('bills_customer_idx').on(table.customerId)],
+  (table) => [
+    index('bills_customer_idx').on(table.customerId),
+    index('bills_created_at_idx').on(table.createdAt),
+    check('bills_cash_refund_check', sql`${table.cashRefundPaise} >= 0`),
+  ],
 )
 
 // One batch of a product at the price actually charged. Cost is read from the batch.
@@ -83,7 +89,10 @@ export const billReturns = snakeCase.table(
     returnValuePaise: int().notNull(),
     cashRefundPaise: int().notNull().default(0),
   },
-  (table) => [index('bill_returns_bill_idx').on(table.billId)],
+  (table) => [
+    index('bill_returns_bill_idx').on(table.billId),
+    check('bill_returns_cash_refund_check', sql`${table.cashRefundPaise} >= 0`),
+  ],
 )
 
 export const billReturnItems = snakeCase.table(
@@ -131,6 +140,11 @@ export const serviceOrders = snakeCase.table(
   (table) => [
     index('service_orders_customer_idx').on(table.customerId),
     index('service_orders_due_idx').on(table.dueAt),
+    index('service_orders_created_at_idx').on(table.createdAt),
+    check(
+      'service_orders_cash_refund_check',
+      sql`${table.cashRefundPaise} >= 0`,
+    ),
   ],
 )
 
@@ -148,6 +162,7 @@ export const payments = snakeCase.table(
   },
   (table) => [
     index('payments_customer_idx').on(table.customerId),
+    index('payments_created_at_idx').on(table.createdAt),
     check('payments_amount_check', sql`${table.amountPaise} > 0`),
   ],
 )

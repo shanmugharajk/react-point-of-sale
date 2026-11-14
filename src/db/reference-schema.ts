@@ -39,6 +39,8 @@ export const customers = snakeCase.table('customers', {
   mobile: text().notNull().unique(),
   address: text(),
   email: text(),
+  // What they already owed when we started using the app.
+  openingBalancePaise: int().notNull().default(0),
 })
 
 export const expenseTypes = snakeCase.table('expense_types', {

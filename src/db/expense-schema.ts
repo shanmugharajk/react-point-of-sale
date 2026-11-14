@@ -52,6 +52,7 @@ export const salaryPayments = snakeCase.table(
   },
   (table) => [
     index('salary_payments_employee_idx').on(table.employeeId),
+    index('salary_payments_paid_at_idx').on(table.paidAt),
     check('salary_payments_amount_check', sql`${table.amountPaise} > 0`),
   ],
 )
