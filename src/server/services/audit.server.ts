@@ -1,9 +1,9 @@
-import type { db } from '~/db'
 import {
   type AuditAction,
   type AuditChanges,
   auditLog,
 } from '~/db/audit-schema'
+import type { db } from '~/db/db.server'
 
 // Works with the db itself or a transaction handle, so callers can log inside their transaction.
 export type AuditExecutor = Pick<typeof db, 'insert'>
