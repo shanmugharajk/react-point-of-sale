@@ -41,5 +41,13 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit"
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-lock.yaml, pnpm-workspace.yaml, .npmrc, lefthook.yml, biome.json",
+    "vite.config.ts": "tsconfig.json, tsr.config.json, drizzle.config.ts, components.json",
+    ".gitignore": ".env, .env.example",
+    "README.md": "CLAUDE.md"
   }
 }

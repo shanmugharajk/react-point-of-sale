@@ -38,7 +38,9 @@ function NotFound() {
   )
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+type RootDocumentProps = { children: React.ReactNode }
+
+function RootDocument({ children }: RootDocumentProps) {
   return (
     <html lang="en">
       <head>

@@ -23,14 +23,28 @@
   "assist": {
     "actions": {
       "source": {
-        "organizeImports": "on"
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              [":NODE:", ":PACKAGE:"],
+              ":BLANK_LINE:",
+              ["~/**"],
+              ":BLANK_LINE:",
+              [":PATH:"]
+            ]
+          }
+        }
       }
     }
   },
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "suspicious": {
+        "noDeprecatedImports": "error"
+      }
     }
   },
   "javascript": {
@@ -43,5 +57,17 @@
     "parser": {
       "tailwindDirectives": true
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/src/components/ui/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noLabelWithoutControl": "off"
+          }
+        }
+      }
+    }
+  ]
 }
