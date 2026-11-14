@@ -3,16 +3,18 @@ import { int, text } from 'drizzle-orm/sqlite-core'
 
 import { user } from './auth-schema'
 
+export type ValueOf<T> = T[keyof T]
+
+// Drizzle's text enum needs a non-empty tuple; Object.values only gives an array.
+export function enumValues<T extends Record<string, string>>(values: T) {
+  return Object.values(values) as [ValueOf<T>, ...ValueOf<T>[]]
+}
+
 export const RecordStatus = {
   Active: 'active',
   Cancelled: 'cancelled',
 } as const
-export type RecordStatus = (typeof RecordStatus)[keyof typeof RecordStatus]
-
-const recordStatusValues = Object.values(RecordStatus) as [
-  RecordStatus,
-  ...RecordStatus[],
-]
+export type RecordStatus = ValueOf<typeof RecordStatus>
 
 export const nowInMilliseconds = sql`(cast(unixepoch('subsecond') * 1000 as integer))`
 
@@ -53,7 +55,7 @@ export function referenceColumns() {
 export function cancellableColumns() {
   return {
     ...baseColumns(),
-    status: text({ enum: recordStatusValues })
+    status: text({ enum: enumValues(RecordStatus) })
       .notNull()
       .default(RecordStatus.Active),
     cancelledAt: int({ mode: 'timestamp_ms' }),

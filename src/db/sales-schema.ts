@@ -2,7 +2,12 @@ import { sql } from 'drizzle-orm'
 import { check, index, int, snakeCase, text } from 'drizzle-orm/sqlite-core'
 
 import { user } from './auth-schema'
-import { baseColumns, cancellableColumns } from './columns'
+import {
+  baseColumns,
+  cancellableColumns,
+  enumValues,
+  type ValueOf,
+} from './columns'
 import { customers, serviceTypes } from './reference-schema'
 import { stockBatches } from './stock-schema'
 
@@ -12,12 +17,7 @@ export const PaymentMode = {
   Card: 'card',
   Other: 'other',
 } as const
-export type PaymentMode = (typeof PaymentMode)[keyof typeof PaymentMode]
-
-const paymentModeValues = Object.values(PaymentMode) as [
-  PaymentMode,
-  ...PaymentMode[],
-]
+export type PaymentMode = ValueOf<typeof PaymentMode>
 
 export const ServiceStage = {
   Received: 'received',
@@ -25,12 +25,7 @@ export const ServiceStage = {
   Ready: 'ready',
   Delivered: 'delivered',
 } as const
-export type ServiceStage = (typeof ServiceStage)[keyof typeof ServiceStage]
-
-const serviceStageValues = Object.values(ServiceStage) as [
-  ServiceStage,
-  ...ServiceStage[],
-]
+export type ServiceStage = ValueOf<typeof ServiceStage>
 
 // A product sale. Totals are saved when the bill is made and never change.
 // Walk-ins have no customer; their optional name and mobile live on the bill.
@@ -130,7 +125,7 @@ export const serviceOrders = snakeCase.table(
     pricePaise: int().notNull(),
     dueAt: int({ mode: 'timestamp_ms' }).notNull(),
     assignedTo: text().references(() => user.id),
-    stage: text({ enum: serviceStageValues })
+    stage: text({ enum: enumValues(ServiceStage) })
       .notNull()
       .default(ServiceStage.Received),
     deliveredAt: int({ mode: 'timestamp_ms' }),
@@ -155,7 +150,7 @@ export const payments = snakeCase.table(
   {
     ...cancellableColumns(),
     amountPaise: int().notNull(),
-    mode: text({ enum: paymentModeValues }),
+    mode: text({ enum: enumValues(PaymentMode) }),
     customerId: text().references(() => customers.id),
     billId: text().references(() => bills.id),
     serviceOrderId: text().references(() => serviceOrders.id),

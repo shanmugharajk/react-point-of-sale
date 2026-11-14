@@ -2,7 +2,7 @@ import { sql } from 'drizzle-orm'
 import { check, index, int, snakeCase, text } from 'drizzle-orm/sqlite-core'
 
 import { user } from './auth-schema'
-import { cancellableColumns } from './columns'
+import { cancellableColumns, enumValues, type ValueOf } from './columns'
 import { expenseTypes } from './reference-schema'
 
 export const SalaryPaymentType = {
@@ -10,13 +10,7 @@ export const SalaryPaymentType = {
   Advance: 'advance',
   Other: 'other',
 } as const
-export type SalaryPaymentType =
-  (typeof SalaryPaymentType)[keyof typeof SalaryPaymentType]
-
-const salaryPaymentTypeValues = Object.values(SalaryPaymentType) as [
-  SalaryPaymentType,
-  ...SalaryPaymentType[],
-]
+export type SalaryPaymentType = ValueOf<typeof SalaryPaymentType>
 
 export const expenses = snakeCase.table(
   'expenses',
@@ -43,7 +37,7 @@ export const salaryPayments = snakeCase.table(
     employeeId: text()
       .notNull()
       .references(() => user.id),
-    type: text({ enum: salaryPaymentTypeValues }).notNull(),
+    type: text({ enum: enumValues(SalaryPaymentType) }).notNull(),
     amountPaise: int().notNull(),
     // The month the payment is for, as YYYY-MM.
     forMonth: text().notNull(),

@@ -1,7 +1,12 @@
 import { index, int, snakeCase, text } from 'drizzle-orm/sqlite-core'
 
 import { user } from './auth-schema'
-import { createId, nowInMilliseconds } from './columns'
+import {
+  createId,
+  enumValues,
+  nowInMilliseconds,
+  type ValueOf,
+} from './columns'
 
 export const AuditAction = {
   Created: 'created',
@@ -10,12 +15,7 @@ export const AuditAction = {
   Paid: 'paid',
   StatusChanged: 'status_changed',
 } as const
-export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]
-
-const auditActionValues = Object.values(AuditAction) as [
-  AuditAction,
-  ...AuditAction[],
-]
+export type AuditAction = ValueOf<typeof AuditAction>
 
 export type AuditChanges = Record<string, { from: unknown; to: unknown }>
 
@@ -30,7 +30,7 @@ export const auditLog = snakeCase.table(
     userId: text()
       .notNull()
       .references(() => user.id),
-    action: text({ enum: auditActionValues }).notNull(),
+    action: text({ enum: enumValues(AuditAction) }).notNull(),
     tableName: text().notNull(),
     recordId: text().notNull(),
     changes: text({ mode: 'json' }).$type<AuditChanges>().notNull(),
