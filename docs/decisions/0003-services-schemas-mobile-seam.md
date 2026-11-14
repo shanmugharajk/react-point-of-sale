@@ -5,8 +5,10 @@ Status: accepted (2026-11-13)
 ## Decision
 - `src/server/services/*`: plain functions `(input, context) => result`. Use db and Zod. No TanStack imports, no reading headers or cookies; the caller passes `{ user, role }`.
 - `src/schemas/*`: Zod schemas and inferred types (inputs and response shapes). Framework-free so mobile can import them.
-- Server functions are thin wrappers: `createServerFn().inputValidator(schema).handler(({ data }) => service(data, context))`.
-- Mobile later: add `src/routes/api/v1/*` server routes that call the same services. Server functions are internal RPC (GET/POST only) and are not a public API.
+- Server functions are thin wrappers: `createServerFn().middleware([sessionMiddleware]).validator(schema).handler(({ data, context }) => service(data, context.serviceContext))`. `sessionMiddleware` calls `getServiceContext(headers)` (`src/server/session.server.ts`) to turn the login into `{ user, role }`; services check the role themselves (`assertAdmin`).
+- Errors: services throw `ServiceError` for problems the user can fix; its message is shown. Anything else is logged and shown as "Something went wrong". The mobile API maps them to 400 and 500.
+- Server-only files (db, auth, services that touch the db) end in `.server.ts`. Start's import protection fails the build if browser code imports one.
+- Mobile later: add `src/routes/api/v1/*` server routes that call the same services and `getServiceContext`. Server functions are internal RPC (GET/POST only) and are not a public API.
 - No tRPC, Hono or OpenAPI until mobile is real.
 
 ## Why

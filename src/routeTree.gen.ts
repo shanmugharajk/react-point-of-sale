@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ProtectedRouteImport } from './routes/_protected'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ProtectedIndexRouteImport } from './routes/_protected/index'
+import { Route as ProtectedAdminRouteImport } from './routes/_protected/admin'
+import { Route as ProtectedAdminProductTypesRouteImport } from './routes/_protected/admin/product-types'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const ProtectedRoute = ProtectedRouteImport.update({
@@ -28,6 +30,17 @@ const ProtectedIndexRoute = ProtectedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProtectedRoute,
 } as any)
+const ProtectedAdminRoute = ProtectedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => ProtectedRoute,
+} as any)
+const ProtectedAdminProductTypesRoute =
+  ProtectedAdminProductTypesRouteImport.update({
+    id: '/product-types',
+    path: '/product-types',
+    getParentRoute: () => ProtectedAdminRoute,
+  } as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -37,26 +50,39 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof ProtectedIndexRoute
   '/login': typeof LoginRoute
+  '/admin': typeof ProtectedAdminRouteWithChildren
+  '/admin/product-types': typeof ProtectedAdminProductTypesRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
+  '/admin': typeof ProtectedAdminRouteWithChildren
   '/': typeof ProtectedIndexRoute
+  '/admin/product-types': typeof ProtectedAdminProductTypesRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_protected': typeof ProtectedRouteWithChildren
   '/login': typeof LoginRoute
+  '/_protected/admin': typeof ProtectedAdminRouteWithChildren
   '/_protected/': typeof ProtectedIndexRoute
+  '/_protected/admin/product-types': typeof ProtectedAdminProductTypesRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/api/auth/$'
+  fullPaths: '/' | '/login' | '/admin' | '/admin/product-types' | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/' | '/api/auth/$'
-  id: '__root__' | '/_protected' | '/login' | '/_protected/' | '/api/auth/$'
+  to: '/login' | '/admin' | '/' | '/admin/product-types' | '/api/auth/$'
+  id:
+    | '__root__'
+    | '/_protected'
+    | '/login'
+    | '/_protected/admin'
+    | '/_protected/'
+    | '/_protected/admin/product-types'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -88,6 +114,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedIndexRouteImport
       parentRoute: typeof ProtectedRoute
     }
+    '/_protected/admin': {
+      id: '/_protected/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof ProtectedAdminRouteImport
+      parentRoute: typeof ProtectedRoute
+    }
+    '/_protected/admin/product-types': {
+      id: '/_protected/admin/product-types'
+      path: '/product-types'
+      fullPath: '/admin/product-types'
+      preLoaderRoute: typeof ProtectedAdminProductTypesRouteImport
+      parentRoute: typeof ProtectedAdminRoute
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -98,11 +138,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ProtectedAdminRouteChildren {
+  ProtectedAdminProductTypesRoute: typeof ProtectedAdminProductTypesRoute
+}
+
+const ProtectedAdminRouteChildren: ProtectedAdminRouteChildren = {
+  ProtectedAdminProductTypesRoute: ProtectedAdminProductTypesRoute,
+}
+
+const ProtectedAdminRouteWithChildren = ProtectedAdminRoute._addFileChildren(
+  ProtectedAdminRouteChildren,
+)
+
 interface ProtectedRouteChildren {
+  ProtectedAdminRoute: typeof ProtectedAdminRouteWithChildren
   ProtectedIndexRoute: typeof ProtectedIndexRoute
 }
 
 const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedAdminRoute: ProtectedAdminRouteWithChildren,
   ProtectedIndexRoute: ProtectedIndexRoute,
 }
 

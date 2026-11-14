@@ -26,6 +26,7 @@ A point-of-sale app for small shops. v2 rewrite (the old v1 lives on the `master
 - Single quotes, no semicolons, 2-space indent (Biome enforces it)
 - Prefer the simplest thing that works; no speculative abstractions
 - Business logic goes in `src/server/services` (no TanStack imports), Zod schemas in `src/schemas`; server functions stay thin wrappers (see `docs/`)
+- Server-only files (db, auth, services) end in `.server.ts`; throw `ServiceError` for messages the user should see
 - Imports: external, blank line, `~/` alias, blank line, `./` relative (Biome enforces order). Use the alias for anything outside the current directory; keep `.css` imports in the same groups
 - Name every type (no inline object types in props or params) and every handler (no multi-line inline methods)
 - Full descriptive names, no abbreviations (`event`, not `e`)
